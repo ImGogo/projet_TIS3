@@ -1,19 +1,54 @@
 package princetonPlainsboro;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 class DossierMedical {
 
     private List<FicheDeSoins> fiches;     // contient des objets de classe 'FicheDeSoins'
-
+    private List<Patient> patients; 
 
     public DossierMedical() {
         fiches = new Vector<FicheDeSoins>();  // liste vide
+        patients = new ArrayList<Patient>();
     }
 
     public void ajouterFiche(FicheDeSoins fiche) {
         fiches.add(fiche);
+    }
+    
+    public void ajouterPatient(Patient patient) {
+        patients.add(patient);
+    }
+    
+    public List<Patient> getPatients() {
+        return this.patients;
+    }
+    
+    public Patient getPatient(String nom) {
+        int i = 0;
+        while( i < patients.size() && !patients.get(i).toString().equals(nom)) {
+            i++;
+        }
+        return patients.get(i);
+    }
+    
+    public List<String> getPatientsNames() {
+        List<String> liste = new ArrayList<>();
+        
+        for(Patient p: patients) {
+            
+            liste.add(p.toString());
+//            System.out.println(p.toString());
+        }
+        
+        return liste;
+        
+    }
+    
+    public boolean contientPatient(Patient patient) {
+        return patients.contains(patient);
     }
 
     public void afficher() {

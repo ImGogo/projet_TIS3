@@ -6,6 +6,12 @@
 
 package princetonPlainsboro;
 
+import javax.swing.JList;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author Go.0
@@ -20,8 +26,29 @@ public class MainWindow extends javax.swing.JFrame {
         
         LectureXML test = new LectureXML("dossiers.xml");
         this.dm = test.getDossier();
+        for(String s : dm.getPatientsNames()){
+            System.out.println(s);
+        }
         
-        this.patientListPnl.add()
+        JList patientJList = new JList(dm.getPatientsNames().toArray());
+        this.patientLst.setModel(patientJList.getModel());
+        this.patientLst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel listSelectionModel = this.patientLst.getSelectionModel();
+        listSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                
+                Patient selectedPatient = dm.getPatient(patientLst.getSelectedValue());
+                MainWindow.this.patientNameTxtF.setText( selectedPatient.getNom() );
+                MainWindow.this.patientSurnameTxtF.setText( selectedPatient.getPrenom() );
+            }
+        });
+        
+        
+    }
+    
+    public void updatePatientDisplay(){
+        
     }
 
     /** This method is called from within the constructor to
@@ -43,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame {
         patientSPnl = new javax.swing.JSplitPane();
         patientListPnl = new javax.swing.JPanel();
         patientListScroll = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        patientLst = new javax.swing.JList<>();
         addPatientBtn = new javax.swing.JButton();
         sortPatientCb = new javax.swing.JComboBox<>();
         sortLbl = new javax.swing.JLabel();
@@ -56,10 +83,10 @@ public class MainWindow extends javax.swing.JFrame {
         nameLbl = new javax.swing.JLabel();
         surnameLbl = new javax.swing.JLabel();
         adressLbl = new javax.swing.JLabel();
-        nameTxtF = new javax.swing.JTextField();
-        surnameTxtF = new javax.swing.JTextField();
-        adressTxtF = new javax.swing.JTextField();
-        inseeLbl = new javax.swing.JLabel();
+        patientNameTxtF = new javax.swing.JTextField();
+        patientSurnameTxtF = new javax.swing.JTextField();
+        patientAdressTxtF = new javax.swing.JTextField();
+        patientInseeLbl = new javax.swing.JLabel();
         inseeTxtF = new javax.swing.JTextField();
         listeActePatientLbl = new javax.swing.JLabel();
         listeActePatientSPnl = new javax.swing.JScrollPane();
@@ -152,12 +179,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         patientListPnl.setBackground(new java.awt.Color(51, 51, 51));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        patientLst.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        patientListScroll.setViewportView(jList1);
+        patientListScroll.setViewportView(patientLst);
 
         addPatientBtn.setText("Ajouter");
         addPatientBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +205,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(patientListPnlLayout.createSequentialGroup()
-                        .add(patientListScroll)
+                        .add(patientListScroll, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .add(patientListPnlLayout.createSequentialGroup()
                         .add(23, 23, 23)
@@ -225,18 +252,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         adressLbl.setText("Adresse :");
 
-        nameTxtF.setText("jTextField1");
-        nameTxtF.addActionListener(new java.awt.event.ActionListener() {
+        patientNameTxtF.setText("jTextField1");
+        patientNameTxtF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameTxtFActionPerformed(evt);
+                patientNameTxtFActionPerformed(evt);
             }
         });
 
-        surnameTxtF.setText("jTextField1");
+        patientSurnameTxtF.setText("jTextField1");
 
-        adressTxtF.setText(" .....");
+        patientAdressTxtF.setText(" .....");
 
-        inseeLbl.setText("INSEE :");
+        patientInseeLbl.setText("INSEE :");
 
         inseeTxtF.setText(" .....");
 
@@ -269,17 +296,17 @@ public class MainWindow extends javax.swing.JFrame {
                                 .add(infoPatientPnlLayout.createSequentialGroup()
                                     .add(nameLbl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(nameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(patientNameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .add(infoPatientPnlLayout.createSequentialGroup()
                                     .add(surnameLbl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(18, 18, 18)
-                                    .add(surnameTxtF))
+                                    .add(patientSurnameTxtF))
                                 .add(infoPatientPnlLayout.createSequentialGroup()
                                     .add(adressLbl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(18, 18, 18)
-                                    .add(adressTxtF)))
+                                    .add(patientAdressTxtF)))
                             .add(infoPatientPnlLayout.createSequentialGroup()
-                                .add(inseeLbl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(patientInseeLbl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(inseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 312, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(49, 348, Short.MAX_VALUE))
@@ -295,18 +322,18 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(35, 35, 35)
                 .add(infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(nameLbl)
-                    .add(nameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(patientNameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(surnameLbl)
-                    .add(surnameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(patientSurnameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(15, 15, 15)
                 .add(infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(adressLbl)
-                    .add(adressTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(patientAdressTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(inseeLbl)
+                    .add(patientInseeLbl)
                     .add(inseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(32, 32, 32)
                 .add(listeActePatientLbl)
@@ -804,7 +831,7 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
+            .add(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -818,9 +845,9 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addPatientBtnActionPerformed
 
-    private void nameTxtFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTxtFActionPerformed
+    private void patientNameTxtFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameTxtFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameTxtFActionPerformed
+    }//GEN-LAST:event_patientNameTxtFActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -891,10 +918,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton addActePatientBtn;
     private javax.swing.JButton addPatientBtn;
     private javax.swing.JLabel adressLbl;
-    private javax.swing.JTextField adressTxtF;
     private javax.swing.JButton editPatientBtn;
     private javax.swing.JPanel infoPatientPnl;
-    private javax.swing.JLabel inseeLbl;
     private javax.swing.JTextField inseeTxtF;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -922,7 +947,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
     private javax.swing.JMenu jMenu1;
@@ -957,17 +981,20 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane listeActePatientSPnl;
     private javax.swing.JTable listeActepatientTbl;
     private javax.swing.JLabel nameLbl;
-    private javax.swing.JTextField nameTxtF;
+    private javax.swing.JTextField patientAdressTxtF;
+    private javax.swing.JLabel patientInseeLbl;
     private javax.swing.JPanel patientListPnl;
     private javax.swing.JScrollPane patientListScroll;
+    private javax.swing.JList<String> patientLst;
+    private javax.swing.JTextField patientNameTxtF;
     private javax.swing.JPanel patientPnl;
     private javax.swing.JSplitPane patientSPnl;
+    private javax.swing.JTextField patientSurnameTxtF;
     private javax.swing.JButton printPatientBtn;
     private javax.swing.JButton savePatientBtn;
     private javax.swing.JLabel sortLbl;
     private javax.swing.JComboBox<String> sortPatientCb;
     private javax.swing.JLabel surnameLbl;
-    private javax.swing.JTextField surnameTxtF;
     private javax.swing.JPanel viewPatientPnl;
     // End of variables declaration//GEN-END:variables
 

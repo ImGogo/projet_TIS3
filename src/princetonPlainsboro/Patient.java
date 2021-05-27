@@ -12,6 +12,12 @@ class Patient {
     public String toString() {
         return prenom + " " + nom;
         }
+    public String getNom(){
+        return this.nom;
+    }
+    public String getPrenom(){
+        return this.prenom;
+    }
     
     public boolean equals(Object o) {
         if (o instanceof Patient) {
