@@ -11,6 +11,7 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,10 +38,20 @@ public class MainWindow extends javax.swing.JFrame {
         listSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                
                 Patient selectedPatient = dm.getPatient(patientLst.getSelectedValue());
                 MainWindow.this.patientNameTxtF.setText( selectedPatient.getNom() );
                 MainWindow.this.patientSurnameTxtF.setText( selectedPatient.getPrenom() );
+                
+                
+                MainWindow.this.patientSurnameTxtF.setText( selectedPatient.getPrenom() );
+                
+                DefaultTableModel model = (DefaultTableModel) MainWindow.this.listeActepatientTbl.getModel();
+                model.getDataVector().removeAllElements();
+                model.fireTableDataChanged(); 
+                for(Acte a: selectedPatient.getlisteActes()){
+                    model.addRow(a.acteToArray());
+                }
+
             }
         });
         
@@ -252,36 +263,48 @@ public class MainWindow extends javax.swing.JFrame {
 
         adressLbl.setText("Adresse :");
 
-        patientNameTxtF.setText("jTextField1");
+        patientNameTxtF.setEditable(false);
         patientNameTxtF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patientNameTxtFActionPerformed(evt);
             }
         });
 
-        patientSurnameTxtF.setText("jTextField1");
+        patientSurnameTxtF.setEditable(false);
 
-        patientAdressTxtF.setText(" .....");
+        patientAdressTxtF.setEditable(false);
 
         patientInseeLbl.setText("INSEE :");
 
-        inseeTxtF.setText(" .....");
+        inseeTxtF.setEditable(false);
 
         listeActePatientLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listeActePatientLbl.setText("Liste des actes médicaux du patient : ");
 
         listeActepatientTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nom de l'acte", "Nom du médecin", "Date de réalisation", "Code des coûts", "Coût total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         listeActePatientSPnl.setViewportView(listeActepatientTbl);
+        if (listeActepatientTbl.getColumnModel().getColumnCount() > 0) {
+            listeActepatientTbl.getColumnModel().getColumn(0).setResizable(false);
+            listeActepatientTbl.getColumnModel().getColumn(1).setResizable(false);
+            listeActepatientTbl.getColumnModel().getColumn(2).setResizable(false);
+            listeActepatientTbl.getColumnModel().getColumn(3).setResizable(false);
+            listeActepatientTbl.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         org.jdesktop.layout.GroupLayout infoPatientPnlLayout = new org.jdesktop.layout.GroupLayout(infoPatientPnl);
         infoPatientPnl.setLayout(infoPatientPnlLayout);
@@ -337,9 +360,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .add(inseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(32, 32, 32)
                 .add(listeActePatientLbl)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(listeActePatientSPnl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout viewPatientPnlLayout = new org.jdesktop.layout.GroupLayout(viewPatientPnl);
@@ -383,7 +406,7 @@ public class MainWindow extends javax.swing.JFrame {
             patientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(patientPnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(patientSPnl, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
+                .add(patientSPnl)
                 .addContainerGap())
         );
         patientPnlLayout.setVerticalGroup(
@@ -469,21 +492,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel11.setText("Numéro de téléphone :");
 
-        jTextField5.setText("jTextField1");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
             }
         });
 
-        jTextField6.setText("jTextField1");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
             }
         });
-
-        jTextField7.setText(" .....");
 
         org.jdesktop.layout.GroupLayout jPanel12Layout = new org.jdesktop.layout.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);

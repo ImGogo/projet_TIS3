@@ -64,7 +64,9 @@ public class LectureXML {
                         break;
                     case XMLStreamConstants.END_ELEMENT:
                         if (parser.getLocalName().equals("acte")) {
-                            actes.add(new Acte(codeCourant, coefCourant));
+                            Acte acteCourant = new Acte(codeCourant, coefCourant);
+                            actes.add( acteCourant );
+                            patientCourant.ajouterActe( acteCourant );
                         }                        
                         if (parser.getLocalName().equals("code")) {
                             codeCourant = getCode(donneesCourantes);

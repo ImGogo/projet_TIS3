@@ -1,5 +1,7 @@
 package princetonPlainsboro;
 
+import java.text.DecimalFormat;
+
 class Acte {
     private Code code;
     private int coef;
@@ -8,7 +10,10 @@ class Acte {
         this.code = code;
         this.coef = coef;
         }
-    
+    public String[] acteToArray(){
+        String[] table = {null, null, null, code.name(), new DecimalFormat("##.##").format( cout())};
+        return table;
+    }
     public String toString() {
         return code.toString() + ", coefficient : " + coef;
         }
