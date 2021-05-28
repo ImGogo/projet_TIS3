@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<medecins>
+    <medecin id="1">
+        <nom>Bono</nom>
+        <prenom>Jean</prenom>
+        <specialite>ORL</specialite>
+        <telephone></telephone>
+    </medecin>
+    <medecin id="2">
+        <nom>Deblouze</nom>
+        <prenom>Agathe</prenom>
+        <specialite>Cardiologue</specialite>
+    </medecin>
+    <medecin id="3">
+        <nom>Heget</nom>
+        <prenom>Yves</prenom>
+        <specialite>Gynecologie</specialite>
+    </medecin>
+    <medecin id="4">
+        <nom>Covert</nom>
+        <prenom>Harry</prenom>
+        <specialite>ORL</specialite>
+    </medecin>
+    <medecin id="5">
+        <nom>Foupasune</nom>
+        <prenom>Jean</prenom>
+        <specialite>ORL</specialite>
+    </medecin>
+    
+</medecins>

@@ -19,7 +19,7 @@ class Test {
 
         System.out.println("\n********\n");
 
-        Medecin m1 = new Medecin("Deblouze", "Agathe", "Cardiologue");
+        Medecin m1 = new Medecin("Deblouze", "Agathe", "Cardiologue","0606060606");
         dm.afficherListePatients(m1);
 
         System.out.println("\n********\n");

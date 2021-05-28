@@ -43,6 +43,8 @@ public class LectureXML {
         String nomCourant = "";
         String prenomCourant = "";
         String specialiteCourante = "";
+        String telephoneCourant="";
+        String idCourant = "";
         Code codeCourant = null;
         int coefCourant = 0;
         
@@ -52,7 +54,7 @@ public class LectureXML {
             InputStream in = new FileInputStream(repBase + nomFichier);
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(in);
-
+            dossierCourant = new DossierMedical();
             // lecture des evenements
             for (int event = parser.next(); event != XMLStreamConstants.END_DOCUMENT; event = parser.next()) {
                 // traitement selon l'evenement
@@ -60,6 +62,9 @@ public class LectureXML {
                     case XMLStreamConstants.START_ELEMENT:
                         if (parser.getLocalName().equals("dossiers")) {
                             dossierCourant = new DossierMedical();
+                        }
+                        if (parser.getAttributeCount() > 0) {
+                            idCourant = parser.getAttributeValue(0);
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT:
@@ -96,7 +101,7 @@ public class LectureXML {
                             dossierCourant.ajouterFiche(f);
                         }
                         if (parser.getLocalName().equals("medecin")) {
-                            medecinCourant = new Medecin(nomCourant, prenomCourant, specialiteCourante);
+                            medecinCourant = new Medecin(nomCourant, prenomCourant, specialiteCourante,telephoneCourant, idCourant);
                             if(!dossierCourant.contientMedecin(medecinCourant))
                                 dossierCourant.ajouterMedecin(medecinCourant);
                         }
@@ -105,8 +110,8 @@ public class LectureXML {
                         }
                         if (parser.getLocalName().equals("patient")) {
                             patientCourant = new Patient(nomCourant, prenomCourant);
-                            if(!dossierCourant.contientPatient(patientCourant))
-                                dossierCourant.ajouterPatient(patientCourant);
+//                            if(!dossierCourant.contientPatient(patientCourant))
+//                                dossierCourant.ajouterPatient(patientCourant);
                         }
                         if (parser.getLocalName().equals("prenom")) {
                             prenomCourant = donneesCourantes;
@@ -114,7 +119,11 @@ public class LectureXML {
                         if (parser.getLocalName().equals("specialite")) {
                             specialiteCourante = donneesCourantes;
                         }
+                        if (parser.getLocalName().equals("telephone")) {
+                            telephoneCourant = donneesCourantes;
+                        }
                         break;
+                        
                     case XMLStreamConstants.CHARACTERS:
                         donneesCourantes = parser.getText();
                         break;

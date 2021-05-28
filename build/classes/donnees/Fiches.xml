@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<Fiches>
+    <ficheDeSoins>
+    <date>2006-01-06</date>
+    <medecin id="1"></medecin>
+    <patient id="1"></patient>
+    <acte>
+        <code>CS</code>
+        <coef>1</coef>
+    </acte>
+    <acte>
+        <code>ORT</code>
+        <coef>50</coef>
+    </acte>
+    <acte>
+        <code>PRO</code>
+        <coef>150</coef>
+    </acte>
+  </ficheDeSoins>
+  
+  <ficheDeSoins>
+    <date>2005-10-23</date>
+    <medecin id="2"></medecin>
+    <patient id="2"></patient>
+    <acte>
+        <code>CSC</code>
+        <coef>1</coef>
+    </acte>
+    <acte>
+        <code>KC</code>
+        <coef>120</coef>
+    </acte>
+  </ficheDeSoins>
+  
+  <ficheDeSoins>
+    <date>2006-01-03</date>
+    <medecin id="3"></medecin>
+    <patient id="3"></patient>
+    <acte>
+        <code>CSC</code>
+        <coef>2</coef>
+    </acte>
+  </ficheDeSoins>
+  
+  <ficheDeSoins>
+    <date>2005-11-13</date>
+    <medecin id="3"></medecin>
+    <patient id="3"></patient>
+    <acte>
+        <code>KE</code>
+        <coef>1</coef>
+    </acte>
+  </ficheDeSoins>
+  
+  <ficheDeSoins>
+    <date>2005-08-31</date>
+    <medecin id="4"></medecin>
+    <patient id="4"></patient>
+    <acte>
+        <code>CS</code>
+        <coef>1</coef>
+    </acte>
+    <acte>
+        <code>KFA</code>
+        <coef>72</coef>
+    </acte>
+  </ficheDeSoins>
+  
+  <ficheDeSoins>
+    <date>2005-08-31</date>
+    <medecin id="5"></medecin>
+    <patient id="5"></patient>
+    <acte>
+        <code>CS</code>
+        <coef>1</coef>
+    </acte>
+    <acte>
+        <code>KFA</code>
+        <coef>72</coef>
+    </acte>
+    <acte>
+        <code>K</code>
+        <coef>1000</coef>
+    </acte>
+    <acte>
+        <code>KE</code>
+        <coef>60</coef>
+    </acte>
+    <acte>
+        <code>ORT</code>
+        <coef>85</coef>
+    </acte>
+    <acte>
+        <code>PRO</code>
+        <coef>850</coef>
+    </acte>
+  </ficheDeSoins>
+  
+</Fiches>

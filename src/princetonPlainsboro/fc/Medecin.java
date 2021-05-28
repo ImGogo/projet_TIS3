@@ -1,17 +1,32 @@
 package princetonPlainsboro.fc;
 
 public class Medecin {
+    private String id;
     private String nom;
     private String prenom;
     private String specialite;
+    private String telephone;
     
-    public Medecin(String nom, String prenom, String specialite) {
+    public Medecin(String nom, String prenom, String specialite,String telephone) {
         this.nom = nom;
         this.prenom = prenom;
         this.specialite = specialite;
+        this.telephone=telephone;
+        }
+    
+    public Medecin(String nom, String prenom, String specialite,String telephone, String id) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.specialite = specialite;
+        this.telephone = telephone;
+        this.id = id;
         }
     
     public String getSpecialite() { return specialite; }
+    
+    public String getTelephone(){return telephone;}
+    
+    public String getId() { return id; }
     
     public String toString() {
         return "Dr " + prenom + " " + nom + ", " + specialite;

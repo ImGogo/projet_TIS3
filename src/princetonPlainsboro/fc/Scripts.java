@@ -15,11 +15,12 @@ public class Scripts {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String s = "Jean bonno - 07/08/2019";
-        
-        for(String f: s.split(" - ")){
-            System.out.println(f);
+        LectureXML test = new LectureXML("Medecin.xml");
+        DossierMedical dm = test.getDossier();
+        for(Medecin m: dm.getMedecins()) {
+            System.out.println(m.getId());
         }
+        
     }
     
 }

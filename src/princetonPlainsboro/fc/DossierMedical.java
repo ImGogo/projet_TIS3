@@ -32,6 +32,10 @@ public class DossierMedical {
         return this.patients;
     }
     
+    public List<Medecin> getMedecins(){
+        return this.medecins;
+    }
+    
     public Patient getPatient(String nom) {
         int i = 0;
         while( i < patients.size() && !patients.get(i).toString().equals(nom)) {
