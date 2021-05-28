@@ -7,11 +7,13 @@ import java.util.Vector;
 class DossierMedical {
 
     private List<FicheDeSoins> fiches;     // contient des objets de classe 'FicheDeSoins'
-    private List<Patient> patients; 
+    private List<Patient> patients;
+    private List<Medecin> medecins;
 
     public DossierMedical() {
         fiches = new Vector<FicheDeSoins>();  // liste vide
         patients = new ArrayList<Patient>();
+        medecins = new ArrayList<Medecin>();
     }
 
     public void ajouterFiche(FicheDeSoins fiche) {
@@ -20,6 +22,10 @@ class DossierMedical {
     
     public void ajouterPatient(Patient patient) {
         patients.add(patient);
+    }
+    
+    public void ajouterMedecin(Medecin medecin) {
+        medecins.add(medecin);
     }
     
     public List<Patient> getPatients() {
@@ -32,6 +38,23 @@ class DossierMedical {
             i++;
         }
         return patients.get(i);
+    }
+    
+    public Medecin getMedecin(String nom) {
+        int i = 0;
+        while( i < medecins.size() && !medecins.get(i).toString().equals(nom)) {
+            i++;
+        }
+        return medecins.get(i);
+    }
+    
+    public FicheDeSoins getFiche(String nom){
+        int i = 0;
+        String[] data = nom.split(" - ");
+        while( i < fiches.size() && !fiches.get(i).getDate().toString().equals( data[1] ) && !fiches.get(i).getPatient().toString().equals( data[0] )) {
+            i++;
+        }
+        return fiches.get(i);
     }
     
     public List<String> getPatientsNames() {
@@ -47,8 +70,37 @@ class DossierMedical {
         
     }
     
+    public List<String> getMedecinsNames() {
+        List<String> liste = new ArrayList<>();
+        
+        for(Medecin m: medecins) {
+            
+            liste.add(m.toString());
+        }
+        
+        return liste;
+        
+    }
+    
+    public List<String> getFichesNames() {
+        List<String> liste = new ArrayList<>();
+        
+        for(FicheDeSoins f: fiches) {
+            
+            liste.add(f.toString());
+        }
+        
+        return liste;
+        
+    }
+    
     public boolean contientPatient(Patient patient) {
         return patients.contains(patient);
+        
+    }
+    
+    public boolean contientMedecin(Medecin medecin) {
+        return medecins.contains(medecin);
     }
 
     public void afficher() {

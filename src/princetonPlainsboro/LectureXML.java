@@ -97,6 +97,8 @@ public class LectureXML {
                         }
                         if (parser.getLocalName().equals("medecin")) {
                             medecinCourant = new Medecin(nomCourant, prenomCourant, specialiteCourante);
+                            if(!dossierCourant.contientMedecin(medecinCourant))
+                                dossierCourant.ajouterMedecin(medecinCourant);
                         }
                         if (parser.getLocalName().equals("nom")) {
                             nomCourant = donneesCourantes;

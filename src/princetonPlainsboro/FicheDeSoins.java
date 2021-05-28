@@ -1,5 +1,6 @@
 package princetonPlainsboro;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 class FicheDeSoins {
@@ -47,5 +48,23 @@ class FicheDeSoins {
             }
         return total;
         }
+    
+    public String toString(){
+        return patient.getNom() + " " + patient.getPrenom() + " - " + date.toString();
     }
+    
+    public ArrayList<String> actesToStringList() {
+        
+        ArrayList<String> stringA = new ArrayList<>();
+       
+        for(Acte a: actes){
+            stringA.add(a.toString());
+        }
+        return stringA;
+    }
+    
+    public Vector<Acte> getActes(){
+        return this.actes;
+    }
+}
 

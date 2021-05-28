@@ -24,6 +24,14 @@ class Patient {
         return this.prenom;
     }
     
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+    
+    public void setPrenom(String nom){
+        this.prenom = prenom;
+    }
+    
     public void ajouterActe(Acte a){
         this.listeActes.add(a);
     }

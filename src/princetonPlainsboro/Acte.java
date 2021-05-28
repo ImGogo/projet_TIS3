@@ -10,7 +10,7 @@ class Acte {
         this.code = code;
         this.coef = coef;
         }
-    public String[] acteToArray(){
+    public String[] toArray(){
         String[] table = {null, null, null, code.name(), new DecimalFormat("##.##").format( cout())};
         return table;
     }
