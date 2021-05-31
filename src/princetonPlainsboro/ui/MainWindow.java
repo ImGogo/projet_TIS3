@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 import princetonPlainsboro.fc.Acte;
 import princetonPlainsboro.fc.DossierMedical;
 import princetonPlainsboro.fc.FicheDeSoins;
-import princetonPlainsboro.fc.LectureXML;
+import princetonPlainsboro.fc.LectureXMLDossier;
 import princetonPlainsboro.fc.Medecin;
 import princetonPlainsboro.fc.Patient;
 
@@ -43,7 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         this.setTitle("Prinston-Plainsboro    Gestion des dossiers médicaux");
         initComponents();
-        LectureXML test = new LectureXML("dossiers.xml");
+        LectureXMLDossier test = new LectureXMLDossier("dossiers.xml");
         this.dm = test.getDossier();
         
         initPatientTab();

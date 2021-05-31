@@ -3,20 +3,39 @@ package princetonPlainsboro.fc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient {
+class Patient {
     private String nom;
     private String prenom;
+    private String numINSEE;
+    private String adresse;
     private List<Acte> listeActes;
     
     public Patient(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
         this.listeActes = new ArrayList<>();
-        }
+    }
+    
+      public Patient(String nom, String prenom,String adresse,String insee) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse=adresse;
+        this.numINSEE=insee;
+        this.listeActes = new ArrayList<>();
+    }
+    public Patient(){
+        this.nom=null;
+        this.prenom=null;
+    }
     
     public String toString() {
         return prenom + " " + nom;
     }
+    
+    public String toStringComplet() {
+        return prenom + " " + nom+ " "+adresse+" "+numINSEE;
+    }
+    
     public String getNom(){
         return this.nom;
     }
@@ -24,12 +43,12 @@ public class Patient {
         return this.prenom;
     }
     
-    public void setNom(String nom){
-        this.nom = nom;
+    public String getAdresse(){
+        return this.adresse;
     }
     
-    public void setPrenom(String nom){
-        this.prenom = prenom;
+    public String getNumINSEE(){
+        return this.numINSEE;
     }
     
     public void ajouterActe(Acte a){

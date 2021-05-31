@@ -61,6 +61,10 @@ public class DossierMedical {
         return fiches.get(i);
     }
     
+    public List<FicheDeSoins> getListeFiches(){
+        return fiches;
+    }
+    
     public List<String> getPatientsNames() {
         List<String> liste = new ArrayList<>();
         

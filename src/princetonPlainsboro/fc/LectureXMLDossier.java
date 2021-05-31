@@ -1,11 +1,10 @@
 /*
- * LectureXML.java
+ * LectureXMLDossier.java
  *
  * Created on 5 janvier 2006, 18:26
  *
  * Lecture d'un document XML et transformation en instances Java
  */
-
 package princetonPlainsboro.fc;
 
 import java.io.IOException;
@@ -23,77 +22,80 @@ import javax.xml.stream.XMLStreamReader;
  *
  * @author promayon
  */
-public class LectureXML {
+public class LectureXMLDossier {
+
     /// nom du document XML a analyser
     private String nomFichier;
     private final static String repBase = "src/donnees/";
-    
+
     // 'nomFichier' est le nom d'un fichier XML se trouvant dans le repertoire 'repBase' a lire :
-    public LectureXML(String nomFichier) {
+    public LectureXMLDossier(String nomFichier) {
         this.nomFichier = nomFichier;
     }
-    
-    public DossierMedical getDossier() {
+
+    public DossierMedical getDossier(List<Patient> listePatient, List<Medecin> listeMedecin) {
         DossierMedical dossierCourant = null;
         Date date = null;
         Medecin medecinCourant = null;
-        Patient patientCourant= null;
+        Patient patientCourant = null;
         List<Acte> actes = new Vector<Acte>();
         String donneesCourantes = "";
-        String nomCourant = "";
-        String prenomCourant = "";
-        String specialiteCourante = "";
-        String telephoneCourant="";
-        String idCourant = "";
+//        String idCourant = null;
+        String idPatientCourant = null;
+        String idMedecinCourant = null;
         Code codeCourant = null;
         int coefCourant = 0;
-        
+
         // analyser le fichier par StAX
         try {
             // instanciation du parser
             InputStream in = new FileInputStream(repBase + nomFichier);
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(in);
-            dossierCourant = new DossierMedical();
+
             // lecture des evenements
             for (int event = parser.next(); event != XMLStreamConstants.END_DOCUMENT; event = parser.next()) {
                 // traitement selon l'evenement
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
-                        if (parser.getLocalName().equals("dossiers")) {
+                        if (parser.getLocalName().equals("Fiches")) {
                             dossierCourant = new DossierMedical();
-                        }
-                        if (parser.getAttributeCount() > 0) {
-                            idCourant = parser.getAttributeValue(0);
+                        }if (parser.getAttributeCount() > 0) {
+                            if( parser.getLocalName().equals("patient") ) {
+                                idPatientCourant = parser.getAttributeValue(0);
+                            } else if( parser.getLocalName().equals("medecin")) {
+                                idMedecinCourant = parser.getAttributeValue(0);
+                            }
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT:
                         if (parser.getLocalName().equals("acte")) {
                             Acte acteCourant = new Acte(codeCourant, coefCourant);
-                            actes.add( acteCourant );
-                            patientCourant.ajouterActe( acteCourant );
-                        }                        
+                            actes.add(acteCourant);
+                            patientCourant.ajouterActe(acteCourant);
+                        }
                         if (parser.getLocalName().equals("code")) {
                             codeCourant = getCode(donneesCourantes);
-                            if (codeCourant==null) 
-                                throw new XMLStreamException("Impossible de trouver le code d'acte = "+donneesCourantes);
-                        }                        
+                            if (codeCourant == null) {
+                                throw new XMLStreamException("Impossible de trouver le code d'acte = " + donneesCourantes);
+                            }
+                        }
                         if (parser.getLocalName().equals("coef")) {
                             coefCourant = Integer.parseInt(donneesCourantes);
                         }
                         if (parser.getLocalName().equals("date")) {
                             int annee = Integer.parseInt(donneesCourantes.substring(0, donneesCourantes.indexOf('-')));
-                            int mois = Integer.parseInt(donneesCourantes.substring(donneesCourantes.indexOf('-')+1, donneesCourantes.lastIndexOf('-')));
-                            int jour = Integer.parseInt(donneesCourantes.substring(donneesCourantes.lastIndexOf('-')+1, donneesCourantes.length()));
-                            
+                            int mois = Integer.parseInt(donneesCourantes.substring(donneesCourantes.indexOf('-') + 1, donneesCourantes.lastIndexOf('-')));
+                            int jour = Integer.parseInt(donneesCourantes.substring(donneesCourantes.lastIndexOf('-') + 1, donneesCourantes.length()));
+
                             date = new Date(jour, mois, annee);
                         }
                         if (parser.getLocalName().equals("ficheDeSoins")) {
                             FicheDeSoins f = new FicheDeSoins(patientCourant, medecinCourant, date);
                             // ajout des actes
-                            for (int i=0;i<actes.size();i++) {
+                            for (int i = 0; i < actes.size(); i++) {
                                 Acte a = (Acte) actes.get(i);
-                                f.ajouterActe(a);                                
+                                f.ajouterActe(a);
                             }
                             // effacer tous les actes de la liste
                             actes.clear();
@@ -101,29 +103,23 @@ public class LectureXML {
                             dossierCourant.ajouterFiche(f);
                         }
                         if (parser.getLocalName().equals("medecin")) {
-                            medecinCourant = new Medecin(nomCourant, prenomCourant, specialiteCourante,telephoneCourant, idCourant);
-                            if(!dossierCourant.contientMedecin(medecinCourant))
-                                dossierCourant.ajouterMedecin(medecinCourant);
-                        }
-                        if (parser.getLocalName().equals("nom")) {
-                            nomCourant = donneesCourantes;
+                            int i = 0;
+                            
+                            while (i < listeMedecin.size() && !listeMedecin.get(i).getId().equals(idMedecinCourant)) {
+                                i++;
+                            }
+                            medecinCourant = listeMedecin.get(i);
+
                         }
                         if (parser.getLocalName().equals("patient")) {
-                            patientCourant = new Patient(nomCourant, prenomCourant);
-//                            if(!dossierCourant.contientPatient(patientCourant))
-//                                dossierCourant.ajouterPatient(patientCourant);
-                        }
-                        if (parser.getLocalName().equals("prenom")) {
-                            prenomCourant = donneesCourantes;
-                        }
-                        if (parser.getLocalName().equals("specialite")) {
-                            specialiteCourante = donneesCourantes;
-                        }
-                        if (parser.getLocalName().equals("telephone")) {
-                            telephoneCourant = donneesCourantes;
+                            int i = 0;
+                            
+                            while (i < listePatient.size() && !listePatient.get(i).getNumINSEE().equals(idPatientCourant)) {
+                                i++;
+                            }
+                            patientCourant = listePatient.get(i);
                         }
                         break;
-                        
                     case XMLStreamConstants.CHARACTERS:
                         donneesCourantes = parser.getText();
                         break;
@@ -139,32 +135,54 @@ public class LectureXML {
             System.out.println("Verifier le chemin.");
             System.out.println(ex.getMessage());
         }
-       
+
         return dossierCourant;
     }
-    
+
     private static Code getCode(String code) {
-        if (code.equals("CS"))
+        if (code.equals("CS")) {
             return Code.CS;
-        if (code.equals("CSC"))
+        }
+        if (code.equals("CSC")) {
             return Code.CSC;
-        if (code.equals("FP"))
+        }
+        if (code.equals("FP")) {
             return Code.FP;
-        if (code.equals("KC"))
+        }
+        if (code.equals("KC")) {
             return Code.KC;
-        if (code.equals("KE"))
+        }
+        if (code.equals("KE")) {
             return Code.KE;
-        if (code.equals("K"))
+        }
+        if (code.equals("K")) {
             return Code.K;
-        if (code.equals("KFA"))
+        }
+        if (code.equals("KFA")) {
             return Code.KFA;
-        if (code.equals("KFB"))
+        }
+        if (code.equals("KFB")) {
             return Code.KFB;
-        if (code.equals("ORT"))
+        }
+        if (code.equals("ORT")) {
             return Code.ORT;
-        if (code.equals("PRO"))
+        }
+        if (code.equals("PRO")) {
             return Code.PRO;
+        }
         // probleme : code inconnu
-        return null;            
+        return null;
+    }
+
+    public static void main(String[] args) {
+        LectureXMLMedecin lxm = new LectureXMLMedecin("Medecin.xml");
+        LectureXMLPatient lxp = new LectureXMLPatient("Patient.xml");
+        LectureXMLDossier lxd = new LectureXMLDossier("Fiches.xml");
+        System.out.println(lxp.getPatients());
+        DossierMedical dm=lxd.getDossier(lxp.getPatients(), lxm.getMedecins());
+        for (FicheDeSoins f : dm.getListeFiches()) {
+            f.afficher();
+        }
+
     }
 }
