@@ -19,12 +19,14 @@ import princetonPlainsboro.fc.Patient;
 public class AddPatient extends javax.swing.JFrame {
     
     MainWindow mainWindow;
+    Boolean isValid;
     /**
      * Creates new form AddPatient
      */
     public AddPatient(MainWindow mainWindow) {
         initComponents();
         this.mainWindow = mainWindow;
+        isValid = false;
     }
     
     
@@ -47,17 +49,49 @@ public class AddPatient extends javax.swing.JFrame {
         inseeField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         addPatientBtn = new javax.swing.JButton();
+        nameInvalidLbl = new javax.swing.JLabel();
+        adresseInvalidLbl = new javax.swing.JLabel();
+        surnameInvalideLbl = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0));
+        inseeInvalidLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(new java.awt.Dimension(365, 350));
 
         jLabel1.setText("Nom :");
+
+        nameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameFieldKeyReleased(evt);
+            }
+        });
+
+        surnameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                surnameFieldKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Prénom :");
 
         jLabel3.setText("Adresse:");
 
+        adressField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                adressFieldKeyReleased(evt);
+            }
+        });
+
         jLabel4.setText("Numéro INSEE:");
 
+        inseeField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inseeFieldKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel5.setText("Ajout d'un patient");
 
         addPatientBtn.setText("Ajouter");
@@ -66,6 +100,19 @@ public class AddPatient extends javax.swing.JFrame {
                 addPatientBtnActionPerformed(evt);
             }
         });
+
+        nameInvalidLbl.setForeground(new java.awt.Color(255, 0, 0));
+        nameInvalidLbl.setText("caractères non valides");
+        nameInvalidLbl.setFocusable(false);
+
+        adresseInvalidLbl.setForeground(new java.awt.Color(255, 0, 0));
+        adresseInvalidLbl.setText("caractères non valides");
+
+        surnameInvalideLbl.setForeground(new java.awt.Color(255, 0, 0));
+        surnameInvalideLbl.setText("caractères non valides");
+
+        inseeInvalidLbl.setForeground(new java.awt.Color(255, 0, 0));
+        inseeInvalidLbl.setText("caractères non valides");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,61 +132,154 @@ public class AddPatient extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(29, 29, 29)
-                                .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(29, 29, 29)
-                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(29, 29, 29)
+                                .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameInvalidLbl)
+                            .addComponent(adresseInvalidLbl)
+                            .addComponent(surnameInvalideLbl)
+                            .addComponent(inseeInvalidLbl))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameInvalidLbl))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(surnameInvalideLbl))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adresseInvalidLbl))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(inseeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inseeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inseeInvalidLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
         );
+
+        nameInvalidLbl.setVisible(false);
+        adresseInvalidLbl.setVisible(false);
+        surnameInvalideLbl.setVisible(false);
+        inseeInvalidLbl.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientBtnActionPerformed
         Patient tmp;
-        
-        if(this.nameField.getText().matches("^[a-zA-Z]+$") && this.surnameField.getText().matches("^[a-zA-Z]+$") ) {
-            tmp = new Patient(this.nameField.getText(), this.surnameField.getText());
+        if( isValid ) {
+            tmp = new Patient(this.nameField.getText(), this.surnameField.getText(), this.adressField.getText(), this.inseeField.getText());
             mainWindow.ajouterPatient(tmp);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Caractères non autorisés dans les champs nom et/ou prénom");
+            JOptionPane.showMessageDialog(this, "Erreurs dans un ou plusieurs champs");
         }
     }//GEN-LAST:event_addPatientBtnActionPerformed
+
+    private void nameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameFieldKeyReleased
+        JTextField textField = (JTextField) evt.getSource();
+        String validString = "^([a-zA-Z]-* *)+$";
+        if(!textField.getText().matches(validString)){
+            if(textField.getText().matches("")){
+                this.nameInvalidLbl.setText("Ne peut être vide");
+            } else {
+                this.nameInvalidLbl.setText("Caractère(s) invalides");
+            }
+            this.nameInvalidLbl.setVisible(true);
+        } else {
+            this.nameInvalidLbl.setVisible(false);
+        }
+    }//GEN-LAST:event_nameFieldKeyReleased
+
+    private void surnameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_surnameFieldKeyReleased
+        JTextField textField = (JTextField) evt.getSource();
+        String validString = "^([a-zA-Z]-* *)+$";
+        if(!textField.getText().matches(validString)){
+            if(textField.getText().matches("")){
+                this.surnameInvalideLbl.setText("Ne peut être vide");
+            } else {
+                this.surnameInvalideLbl.setText("Caractère(s) invalides");
+            }
+            this.surnameInvalideLbl.setVisible(true);
+            isValid = false;
+        } else {
+            this.surnameInvalideLbl.setVisible(false);
+            isValid = true;
+        }
+    }//GEN-LAST:event_surnameFieldKeyReleased
+
+    private void adressFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adressFieldKeyReleased
+        JTextField textField = (JTextField) evt.getSource();
+        String validString = "^([a-zA-Z0-9]-* *)+$";
+        
+        if(!textField.getText().matches(validString)){
+            if(textField.getText().matches("")){
+                this.adresseInvalidLbl.setText("Ne peut être vide");
+            } else {
+                this.adresseInvalidLbl.setText("Caractère(s) invalides");
+            }
+            isValid = false;
+            this.adresseInvalidLbl.setVisible(true); 
+        } 
+        else {
+            isValid = true;
+            this.adresseInvalidLbl.setVisible(false);
+        }
+    }//GEN-LAST:event_adressFieldKeyReleased
+
+    private void inseeFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inseeFieldKeyReleased
+        JTextField textField = (JTextField) evt.getSource();
+        String validString = "^([a-zA-Z0-9]-* *)+$";
+        
+        if(!textField.getText().matches(validString)){
+            if(textField.getText().matches("")){
+                this.inseeInvalidLbl.setText("Ne peut être vide");
+            } else {
+                this.inseeInvalidLbl.setText("Caractère(s) invalides");
+            }
+            isValid = false;
+            this.inseeInvalidLbl.setVisible(true); 
+        } 
+        else {
+            isValid = true;
+            this.inseeInvalidLbl.setVisible(false);
+        }
+    }//GEN-LAST:event_inseeFieldKeyReleased
     
     /**
      * @param args the command line arguments
@@ -178,13 +318,18 @@ public class AddPatient extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientBtn;
     private javax.swing.JTextField adressField;
+    private javax.swing.JLabel adresseInvalidLbl;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JTextField inseeField;
+    private javax.swing.JLabel inseeInvalidLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nameInvalidLbl;
     private javax.swing.JTextField surnameField;
+    private javax.swing.JLabel surnameInvalideLbl;
     // End of variables declaration//GEN-END:variables
 }

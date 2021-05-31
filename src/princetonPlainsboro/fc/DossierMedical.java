@@ -15,6 +15,12 @@ public class DossierMedical {
         patients = new ArrayList<Patient>();
         medecins = new ArrayList<Medecin>();
     }
+    
+    public DossierMedical(List<Patient> patients, List<Medecin> medecins) {
+        fiches = new Vector<FicheDeSoins>();  // liste vide
+        this.patients = patients;
+        this.medecins = medecins;
+    }
 
     public void ajouterFiche(FicheDeSoins fiche) {
         fiches.add(fiche);
@@ -35,10 +41,22 @@ public class DossierMedical {
     public List<Medecin> getMedecins(){
         return this.medecins;
     }
+
+    public List<FicheDeSoins> getFiches() {
+        return fiches;
+    }
     
     public Patient getPatient(String nom) {
         int i = 0;
         while( i < patients.size() && !patients.get(i).toString().equals(nom)) {
+            i++;
+        }
+        return patients.get(i);
+    }
+    
+    public Patient getPatient(Patient p) {
+        int i = 0;
+        while( i < patients.size() && !patients.get(i).getNumINSEE().equals(p.getNumINSEE())) {
             i++;
         }
         return patients.get(i);
@@ -52,54 +70,12 @@ public class DossierMedical {
         return medecins.get(i);
     }
     
-    public FicheDeSoins getFiche(String nom){
+    public FicheDeSoins getFiche(FicheDeSoins f){
         int i = 0;
-        String[] data = nom.split(" - ");
-        while( i < fiches.size() && !fiches.get(i).getDate().toString().equals( data[1] ) && !fiches.get(i).getPatient().toString().equals( data[0] )) {
+        while( i < fiches.size() && !fiches.get(i).getId().equals(f.getId())) {
             i++;
         }
         return fiches.get(i);
-    }
-    
-    public List<FicheDeSoins> getListeFiches(){
-        return fiches;
-    }
-    
-    public List<String> getPatientsNames() {
-        List<String> liste = new ArrayList<>();
-        
-        for(Patient p: patients) {
-            
-            liste.add(p.toString());
-//            System.out.println(p.toString());
-        }
-        
-        return liste;
-        
-    }
-    
-    public List<String> getMedecinsNames() {
-        List<String> liste = new ArrayList<>();
-        
-        for(Medecin m: medecins) {
-            
-            liste.add(m.toString());
-        }
-        
-        return liste;
-        
-    }
-    
-    public List<String> getFichesNames() {
-        List<String> liste = new ArrayList<>();
-        
-        for(FicheDeSoins f: fiches) {
-            
-            liste.add(f.toString());
-        }
-        
-        return liste;
-        
     }
     
     public boolean contientPatient(Patient patient) {

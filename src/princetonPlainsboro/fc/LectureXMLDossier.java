@@ -43,7 +43,10 @@ public class LectureXMLDossier {
 //        String idCourant = null;
         String idPatientCourant = null;
         String idMedecinCourant = null;
+        String idFicheCourant = null;
         Code codeCourant = null;
+        String observationCourante = null;
+        TypeActe typeCourant = null;
         int coefCourant = 0;
 
         // analyser le fichier par StAX
@@ -59,20 +62,22 @@ public class LectureXMLDossier {
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
                         if (parser.getLocalName().equals("Fiches")) {
-                            dossierCourant = new DossierMedical();
+                            dossierCourant = new DossierMedical(listePatient, listeMedecin);
                         }if (parser.getAttributeCount() > 0) {
                             if( parser.getLocalName().equals("patient") ) {
                                 idPatientCourant = parser.getAttributeValue(0);
                             } else if( parser.getLocalName().equals("medecin")) {
                                 idMedecinCourant = parser.getAttributeValue(0);
+                            } else if( parser.getLocalName().equals("ficheDeSoins")) {
+                                idFicheCourant = parser.getAttributeValue(0);
                             }
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT:
                         if (parser.getLocalName().equals("acte")) {
-                            Acte acteCourant = new Acte(codeCourant, coefCourant);
+                            Acte acteCourant = new Acte(codeCourant, coefCourant, typeCourant, observationCourante);
                             actes.add(acteCourant);
-                            patientCourant.ajouterActe(acteCourant);
+//                            patientCourant.ajouterActe(acteCourant);
                         }
                         if (parser.getLocalName().equals("code")) {
                             codeCourant = getCode(donneesCourantes);
@@ -83,6 +88,15 @@ public class LectureXMLDossier {
                         if (parser.getLocalName().equals("coef")) {
                             coefCourant = Integer.parseInt(donneesCourantes);
                         }
+                        if (parser.getLocalName().equals("type")) {
+                            typeCourant = getTypeActe(donneesCourantes);
+                            if (typeCourant == null) {
+                                throw new XMLStreamException("Impossible de trouver le code du type = " + donneesCourantes);
+                            }
+                        }
+                        if (parser.getLocalName().equals("observations")) {
+                            observationCourante = donneesCourantes;
+                        }
                         if (parser.getLocalName().equals("date")) {
                             int annee = Integer.parseInt(donneesCourantes.substring(0, donneesCourantes.indexOf('-')));
                             int mois = Integer.parseInt(donneesCourantes.substring(donneesCourantes.indexOf('-') + 1, donneesCourantes.lastIndexOf('-')));
@@ -91,7 +105,7 @@ public class LectureXMLDossier {
                             date = new Date(jour, mois, annee);
                         }
                         if (parser.getLocalName().equals("ficheDeSoins")) {
-                            FicheDeSoins f = new FicheDeSoins(patientCourant, medecinCourant, date);
+                            FicheDeSoins f = new FicheDeSoins(patientCourant, medecinCourant, date, idFicheCourant);
                             // ajout des actes
                             for (int i = 0; i < actes.size(); i++) {
                                 Acte a = (Acte) actes.get(i);
@@ -101,6 +115,7 @@ public class LectureXMLDossier {
                             actes.clear();
                             // ajouter la fiche de soin au dossiers
                             dossierCourant.ajouterFiche(f);
+                            patientCourant.ajouterFiche(f);
                         }
                         if (parser.getLocalName().equals("medecin")) {
                             int i = 0;
@@ -170,6 +185,18 @@ public class LectureXMLDossier {
         if (code.equals("PRO")) {
             return Code.PRO;
         }
+        // probleme : code inconnu
+        return null;
+    }
+    
+    private static TypeActe getTypeActe(String type) {
+        if (type.equals("1")) {
+            return TypeActe.DIAGNOSTIQUE;
+        }
+        if (type.equals("2")) {
+            return TypeActe.THERAPEUTIQUE;
+        }
+        
         // probleme : code inconnu
         return null;
     }

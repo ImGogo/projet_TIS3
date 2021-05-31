@@ -7,14 +7,20 @@ public class FicheDeSoins {
     private Patient patient;
     private Medecin medecin;
     private Date date;
+    private String id;
     private Vector<Acte> actes;       // contient des objets de classe 'Acte'
     
-    public FicheDeSoins(Patient patient, Medecin medecin, Date date) {
+    public FicheDeSoins(Patient patient, Medecin medecin, Date date, String id) {
         this.patient = patient;
         this.medecin = medecin;
         this.date = date;
+        this.id = id;
         actes = new Vector<Acte>();   // liste vide
         }
+
+    public String getId() {
+        return id;
+    }
     
     public Patient getPatient() { return patient; }
     public Medecin getMedecin() { return medecin; }

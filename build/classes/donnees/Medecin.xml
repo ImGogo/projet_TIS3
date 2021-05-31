@@ -11,27 +11,31 @@ and open the template in the editor.
         <nom>Bono</nom>
         <prenom>Jean</prenom>
         <specialite>ORL</specialite>
-        <telephone></telephone>
+        <telephone>0606060606</telephone>
     </medecin>
     <medecin id="2">
         <nom>Deblouze</nom>
         <prenom>Agathe</prenom>
         <specialite>Cardiologue</specialite>
+        <telephone>0607080910</telephone>
     </medecin>
     <medecin id="3">
         <nom>Heget</nom>
         <prenom>Yves</prenom>
         <specialite>Gynecologie</specialite>
+        <telephone>0102030405</telephone>
     </medecin>
     <medecin id="4">
         <nom>Covert</nom>
         <prenom>Harry</prenom>
         <specialite>ORL</specialite>
+        <telephone>0809101112</telephone>
     </medecin>
     <medecin id="5">
         <nom>Foupasune</nom>
         <prenom>Jean</prenom>
         <specialite>ORL</specialite>
+        <telephone>1213141516</telephone>
     </medecin>
     
 </medecins>
