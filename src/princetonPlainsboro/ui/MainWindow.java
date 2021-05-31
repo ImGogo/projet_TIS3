@@ -1064,24 +1064,24 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_fichesActesCBoxActionPerformed
     
     private void updatePatientTextFields(Patient p){
-        MainWindow.this.patientNameTxtF.setText( p.getNom() );
-        MainWindow.this.patientSurnameTxtF.setText( p.getPrenom() );
+        this.patientNameTxtF.setText( p.getNom() );
+        this.patientSurnameTxtF.setText( p.getPrenom() );
     }
     
     private void updateMedecinTextFields(Medecin m){
-        MainWindow.this.medecinNameTxtF.setText( m.getNom() );
-        MainWindow.this.medecinSurnameTxtF.setText( m.getPrenom() );
-        MainWindow.this.medecinSpecialiteTxtF.setText( m.getSpecialite() );
+        this.medecinNameTxtF.setText( m.getNom() );
+        this.medecinSurnameTxtF.setText( m.getPrenom() );
+        this.medecinSpecialiteTxtF.setText( m.getSpecialite() );
     }
     
     private void updateFicheTextFields(FicheDeSoins f){
-        MainWindow.this.ficheMedecinTxtF.setText( f.getMedecin().toString() );
-        MainWindow.this.fichePatientTxtF.setText( f.getPatient().toString() );
-        MainWindow.this.ficheDateTxtF.setText( f.getDate().toString() );
+        this.ficheMedecinTxtF.setText( f.getMedecin().toString() );
+        this.fichePatientTxtF.setText( f.getPatient().toString() );
+        this.ficheDateTxtF.setText( f.getDate().toString() );
         
         
         DefaultComboBoxModel<Acte> model = new DefaultComboBoxModel<>( f.getActes() );
-        MainWindow.this.fichesActesCBox.setModel(model);
+        this.fichesActesCBox.setModel(model);
         
     }
     
