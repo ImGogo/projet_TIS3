@@ -5,7 +5,6 @@
  */
 
 package princetonPlainsboro.ui;
-import com.github.weisj.darklaf.LafManager;
 import princetonPlainsboro.ui.AddPatient;
 import javax.swing.JList;
 import javax.swing.ListModel;
@@ -1152,7 +1151,6 @@ public class MainWindow extends javax.swing.JFrame {
                 
                 mw.setVisible(true);
                 mw.setLocationRelativeTo(null);
-                LafManager.
                 try {
                     UIManager.setLookAndFeel(new com.sun.java.swing.plaf.windows.WindowsLookAndFeel());
                     SwingUtilities.updateComponentTreeUI(mw);

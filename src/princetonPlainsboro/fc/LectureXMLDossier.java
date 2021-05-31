@@ -207,7 +207,7 @@ public class LectureXMLDossier {
         LectureXMLDossier lxd = new LectureXMLDossier("Fiches.xml");
         System.out.println(lxp.getPatients());
         DossierMedical dm=lxd.getDossier(lxp.getPatients(), lxm.getMedecins());
-        for (FicheDeSoins f : dm.getListeFiches()) {
+        for (FicheDeSoins f : dm.getFiches()) {
             f.afficher();
         }
 
