@@ -74,6 +74,20 @@ public class Patient {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+    
+    public boolean verifyINSEE(String numINSEE,String cle) {
+        if (numINSEE.length() > 14) {
+            return false;
+        } else {
+            String firstPart = numINSEE.substring(0, 11);
+            
+            double fp = Double.parseDouble(firstPart);
+            double verifCle = Double.parseDouble(cle);
+            double calculCle=97-(fp%97);
+            //System.out.println("cle= "+cle);
+            return verifCle==calculCle;
+        }
+    }
 
 //    public void setListeActes(List<Acte> listeActes) {
 //        this.listeActes = listeActes;
