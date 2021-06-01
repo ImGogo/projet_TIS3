@@ -19,7 +19,10 @@ public enum TypeActe {
         this.libelle = libelle;
         }
     
-    
+    public static TypeActe getTypeFromInt(int i){
+       if(i == 1) return TypeActe.DIAGNOSTIQUE;
+       else return TypeActe.THERAPEUTIQUE;
+    }
     // m�thodes :
     public String toString() {
         return libelle;

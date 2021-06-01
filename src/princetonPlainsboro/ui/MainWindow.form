@@ -155,7 +155,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addFicheBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -171,7 +171,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addFicheBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -193,21 +193,21 @@
                         <Component class="javax.swing.JList" name="fichesLst">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;    String[] strings = {  };&#xa;    public int getSize() { return strings.length; }&#xa;    public String getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                              <Connection code="new javax.swing.AbstractListModel&lt;FicheDeSoins&gt;() {&#xa;    FicheDeSoins[] strings = {  };&#xa;    public int getSize() { return strings.length; }&#xa;    public FicheDeSoins getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;FicheDeSoins&gt;"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="jButton11">
+                    <Component class="javax.swing.JButton" name="addFicheBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Ajouter"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addFicheBtnActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="jComboBox3">
@@ -250,7 +250,7 @@
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jButton12" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton15" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="addActeBtn" min="-2" pref="132" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -268,7 +268,7 @@
                                   <Component id="jButton13" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="jButton14" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="jButton12" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jButton15" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="addActeBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
@@ -293,10 +293,13 @@
                         <Property name="text" type="java.lang.String" value="Enregistrer"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton15">
+                    <Component class="javax.swing.JButton" name="addActeBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Ajouter un acte"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addActeBtnActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JPanel" name="jPanel16">
 
@@ -579,7 +582,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addMedecinBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="44" max="32767" attributes="0"/>
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -595,7 +598,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addMedecinBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -617,21 +620,21 @@
                         <Component class="javax.swing.JList" name="medecinLst">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;    String[] strings = {  };&#xa;    public int getSize() { return strings.length; }&#xa;    public String getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                              <Connection code="new javax.swing.AbstractListModel&lt;Medecin&gt;() {&#xa;    Medecin[] strings = {  };&#xa;    public int getSize() { return strings.length; }&#xa;    public Medecin getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Medecin&gt;"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="jButton6">
+                    <Component class="javax.swing.JButton" name="addMedecinBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Ajouter"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMedecinBtnActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="jComboBox2">
@@ -712,17 +715,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel20" min="-2" pref="54" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="medecinSurnameTxtF" min="-2" pref="230" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel9" min="-2" pref="54" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="medecinNameTxtF" min="-2" pref="230" max="-2" attributes="0"/>
-                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -731,28 +724,34 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="medecinTelephoneTxtF" max="32767" attributes="0"/>
+                                              <Component id="medecinTelephoneTxtF" pref="163" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="medecinNameTxtF" min="-2" pref="233" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jLabel20" min="-2" pref="54" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="medecinSurnameTxtF" min="-2" pref="230" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="410" max="32767" attributes="0"/>
+                                  <EmptySpace pref="127" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="medecinNameTxtF" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="medecinNameTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="medecinSurnameTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="medecinSpecialiteTxtF" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -762,7 +761,7 @@
                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="medecinTelephoneTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="512" max="32767" attributes="0"/>
+                                  <EmptySpace pref="558" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -879,9 +878,9 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="addPatientBtn1" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="addPatientBtn" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="addPatientBtn" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="filterPatientBtn" min="-2" pref="91" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -891,8 +890,8 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="addPatientBtn1" pref="44" max="32767" attributes="0"/>
-                                  <Component id="addPatientBtn" max="32767" attributes="0"/>
+                                  <Component id="addPatientBtn" pref="44" max="32767" attributes="0"/>
+                                  <Component id="filterPatientBtn" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="patientListScroll" pref="524" max="32767" attributes="0"/>
@@ -912,29 +911,29 @@
                         <Component class="javax.swing.JList" name="patientLst">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;    String[] strings = { };&#xa;    public int getSize() { return strings.length; }&#xa;    public String getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                              <Connection code="new javax.swing.AbstractListModel&lt;Patient&gt;() {&#xa;    Patient[] strings = { };&#xa;    public int getSize() { return strings.length; }&#xa;    public Patient getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Patient&gt;"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="addPatientBtn">
+                    <Component class="javax.swing.JButton" name="filterPatientBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Filtrer"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPatientBtnActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterPatientBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="addPatientBtn1">
+                    <Component class="javax.swing.JButton" name="addPatientBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Ajouter"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPatientBtn1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPatientBtnActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1023,18 +1022,17 @@
                                       <Component id="listeActePatientSPnl" alignment="0" min="-2" pref="679" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="surnameLbl" min="-2" pref="54" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="patientSurnameTxtF" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
                                               <Component id="nameLbl" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="patientNameTxtF" min="-2" pref="578" max="-2" attributes="0"/>
+                                              <Component id="patientNameTxtF" min="-2" pref="233" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="surnameLbl" min="-2" pref="54" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="patientSurnameTxtF" pref="267" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="adressLbl" min="-2" pref="54" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Component id="adressLbl" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="patientAdressTxtF" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
@@ -1055,13 +1053,10 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="nameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="patientNameTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="surnameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="patientSurnameTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="adressLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="patientAdressTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1071,11 +1066,11 @@
                                       <Component id="patientInseeLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="patientInseeTxtF" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="listeActePatientLbl" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="listeActePatientSPnl" min="-2" pref="270" max="-2" attributes="0"/>
-                                  <EmptySpace pref="175" max="32767" attributes="0"/>
+                                  <Component id="listeActePatientSPnl" min="-2" pref="338" max="-2" attributes="0"/>
+                                  <EmptySpace pref="170" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

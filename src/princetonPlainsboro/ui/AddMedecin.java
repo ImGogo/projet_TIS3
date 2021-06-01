@@ -10,20 +10,20 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import princetonPlainsboro.fc.Patient;
+import princetonPlainsboro.fc.Medecin;
 
 /**
  *
  * @author Go
  */
-public class AddPatient extends javax.swing.JFrame {
+public class AddMedecin extends javax.swing.JFrame {
     
     MainWindow mainWindow;
     Boolean isValid;
     /**
      * Creates new form AddPatient
      */
-    public AddPatient(MainWindow mainWindow) {
+    public AddMedecin(MainWindow mainWindow) {
         initComponents();
         this.mainWindow = mainWindow;
         isValid = false;
@@ -44,11 +44,11 @@ public class AddPatient extends javax.swing.JFrame {
         surnameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        adressField = new javax.swing.JTextField();
+        telephoneField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        inseeField = new javax.swing.JTextField();
+        specialiteField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        addPatientBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
         nameInvalidLbl = new javax.swing.JLabel();
         adresseInvalidLbl = new javax.swing.JLabel();
         surnameInvalideLbl = new javax.swing.JLabel();
@@ -75,29 +75,29 @@ public class AddPatient extends javax.swing.JFrame {
 
         jLabel2.setText("Prénom :");
 
-        jLabel3.setText("Adresse:");
+        jLabel3.setText("Téléphone :");
 
-        adressField.addKeyListener(new java.awt.event.KeyAdapter() {
+        telephoneField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                adressFieldKeyReleased(evt);
+                telephoneFieldKeyReleased(evt);
             }
         });
 
-        jLabel4.setText("Numéro INSEE:");
+        jLabel4.setText("Spécialité");
 
-        inseeField.addKeyListener(new java.awt.event.KeyAdapter() {
+        specialiteField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                inseeFieldKeyReleased(evt);
+                specialiteFieldKeyReleased(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel5.setText("Ajout d'un patient");
+        jLabel5.setText("Ajout d'un médecin");
 
-        addPatientBtn.setText("Ajouter");
-        addPatientBtn.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setText("Ajouter");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatientBtnActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
 
@@ -126,11 +126,11 @@ public class AddPatient extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(29, 29, 29)
-                                .addComponent(inseeField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(specialiteField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(29, 29, 29)
-                                .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(telephoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(29, 29, 29)
@@ -141,7 +141,7 @@ public class AddPatient extends javax.swing.JFrame {
                                 .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
-                        .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -178,16 +178,16 @@ public class AddPatient extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telephoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adresseInvalidLbl))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(inseeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(specialiteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inseeInvalidLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
         );
@@ -200,20 +200,20 @@ public class AddPatient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientBtnActionPerformed
-        Patient tmp;
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        Medecin tmp;
         if( isValid ) {
-            tmp = new Patient(
+            tmp = new Medecin(
                     capitalizeFirstLetter( this.nameField.getText() ), 
                     capitalizeFirstLetter( this.surnameField.getText() ), 
-                    this.adressField.getText(), 
-                    this.inseeField.getText());
-            mainWindow.ajouterPatient(tmp);
+                    this.specialiteField.getText(), 
+                    this.telephoneField.getText());
+            mainWindow.ajouterMedecin(tmp);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Erreurs dans un ou plusieurs champs");
         }
-    }//GEN-LAST:event_addPatientBtnActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
     
     private String capitalizeFirstLetter(String str){
         return str.substring(0, 1).toUpperCase() + str.substring(1);
@@ -250,15 +250,15 @@ public class AddPatient extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_surnameFieldKeyReleased
 
-    private void adressFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adressFieldKeyReleased
+    private void telephoneFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telephoneFieldKeyReleased
         JTextField textField = (JTextField) evt.getSource();
-        String validString = "^([a-zA-Z0-9]-* *)+$";
+        String validString = "^([0-9]){10}$";
         
         if(!textField.getText().matches(validString)){
             if(textField.getText().matches("")){
                 this.adresseInvalidLbl.setText("Ne peut être vide");
             } else {
-                this.adresseInvalidLbl.setText("Caractère(s) invalides");
+                this.adresseInvalidLbl.setText("Veuillez entrer 10 chiffres");
             }
             isValid = false;
             this.adresseInvalidLbl.setVisible(true); 
@@ -267,9 +267,9 @@ public class AddPatient extends javax.swing.JFrame {
             isValid = true;
             this.adresseInvalidLbl.setVisible(false);
         }
-    }//GEN-LAST:event_adressFieldKeyReleased
+    }//GEN-LAST:event_telephoneFieldKeyReleased
 
-    private void inseeFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inseeFieldKeyReleased
+    private void specialiteFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_specialiteFieldKeyReleased
         JTextField textField = (JTextField) evt.getSource();
         String validString = "^([a-zA-Z0-9]-* *)+$";
         
@@ -286,7 +286,7 @@ public class AddPatient extends javax.swing.JFrame {
             isValid = true;
             this.inseeInvalidLbl.setVisible(false);
         }
-    }//GEN-LAST:event_inseeFieldKeyReleased
+    }//GEN-LAST:event_specialiteFieldKeyReleased
     
     /**
      * @param args the command line arguments
@@ -323,11 +323,9 @@ public class AddPatient extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addPatientBtn;
-    private javax.swing.JTextField adressField;
+    private javax.swing.JButton addBtn;
     private javax.swing.JLabel adresseInvalidLbl;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JTextField inseeField;
     private javax.swing.JLabel inseeInvalidLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -336,7 +334,9 @@ public class AddPatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameInvalidLbl;
+    private javax.swing.JTextField specialiteField;
     private javax.swing.JTextField surnameField;
     private javax.swing.JLabel surnameInvalideLbl;
+    private javax.swing.JTextField telephoneField;
     // End of variables declaration//GEN-END:variables
 }

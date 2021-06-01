@@ -55,16 +55,6 @@ public class Patient {
         this.listeFiches.add(f);
     }
     
-    public List<Acte> getlisteActes(){
-        List<Acte> l = new ArrayList<>();
-        for(FicheDeSoins f : listeFiches){
-            for(Acte a : f.getActes() ) {
-                l.add(a);
-            }
-        }
-        return l;
-    }
-    
     public List<FicheDeSoins> getListeFiches() {
         return this.listeFiches;
     }
