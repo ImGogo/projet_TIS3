@@ -5,8 +5,11 @@
  */
 package princetonPlainsboro.ui;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
@@ -14,12 +17,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 import princetonPlainsboro.fc.Acte;
 import princetonPlainsboro.fc.Code;
 import princetonPlainsboro.fc.Date;
 import princetonPlainsboro.fc.DossierMedical;
 import princetonPlainsboro.fc.FicheDeSoins;
 import princetonPlainsboro.fc.Medecin;
+import princetonPlainsboro.fc.ModifyXMLFile;
 import princetonPlainsboro.fc.Patient;
 import princetonPlainsboro.fc.TypeActe;
 
@@ -238,14 +244,22 @@ public class AddActe extends javax.swing.JFrame {
             
 //        Acte tmp;
         if( isValid ) {
-            fiche.ajouterActe(new Acte(
+            Acte newActe = new Acte(
                     (Code) this.acteBox.getSelectedItem(),
                     Integer.parseInt( this.coefTxtF.getText()),
                     TypeActe.getTypeFromInt( selectedType ),
                     this.jTextArea1.getText()
-            ));
-            
-                System.out.println(fiche.actesToStringList());
+            );
+            fiche.ajouterActe(newActe);
+            try {
+                ModifyXMLFile.addFicheActe(fiche.getId(), newActe);
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(AddActe.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                Logger.getLogger(AddActe.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(AddActe.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Erreurs dans un ou plusieurs champs");

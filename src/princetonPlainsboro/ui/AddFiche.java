@@ -17,6 +17,7 @@ import princetonPlainsboro.fc.Date;
 import princetonPlainsboro.fc.DossierMedical;
 import princetonPlainsboro.fc.FicheDeSoins;
 import princetonPlainsboro.fc.Medecin;
+import princetonPlainsboro.fc.ModifyXMLFile;
 import princetonPlainsboro.fc.Patient;
 
 /**
@@ -25,7 +26,7 @@ import princetonPlainsboro.fc.Patient;
  */
 public class AddFiche extends javax.swing.JFrame {
     
-    private static final int STARTING_YEAR = 2000;
+    static final int STARTING_YEAR = 2000;
     MainWindow mainWindow;
     Boolean isValid;
     DossierMedical dm;
@@ -194,6 +195,7 @@ public class AddFiche extends javax.swing.JFrame {
             newId
         );
         mainWindow.ajouterFiche(f);
+        ModifyXMLFile.addFiches(f);
         ((Patient) this.patientBox.getSelectedItem()).ajouterFiche(f);
         this.dispose();
     }//GEN-LAST:event_addBtnActionPerformed

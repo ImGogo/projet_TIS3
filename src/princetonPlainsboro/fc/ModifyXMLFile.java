@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -35,7 +36,7 @@ import org.xml.sax.SAXException;
  */
 //fonctions avec en parametre Id et le medecin, ou fiches de soins ou patients 
 public class ModifyXMLFile {
-
+    static final String FILEPATH = "src/donnees/";
     public static void modifyMedecin(String id, Medecin med) {
         try {
             String specialite = med.getSpecialite();
@@ -43,8 +44,7 @@ public class ModifyXMLFile {
             String nom = med.getNom();
             String telephone = med.getTelephone();
 
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileMedecin = new FileInputStream(filePath + "Medecins.xml");
+            FileInputStream inputFileMedecin = new FileInputStream(FILEPATH + "Medecin.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -79,17 +79,25 @@ public class ModifyXMLFile {
                     }
                 }
             }
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            DOMSource source = new DOMSource(docMedecin);
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Medecin.xml");
+            transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
+                    
     }
 
     public static void addMedecin(Medecin med) {
         try {
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileMedecin = new FileInputStream(filePath + "Medecins.xml");
+            FileInputStream inputFileMedecin = new FileInputStream(FILEPATH + "Medecin.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -126,9 +134,11 @@ public class ModifyXMLFile {
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docMedecin);
-            System.out.println("-----------Modified File-----------");
-            StreamResult consoleResult = new StreamResult("Medecins2.xml");
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Medecin.xml");
             transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
@@ -138,8 +148,7 @@ public class ModifyXMLFile {
 
     public static void addPatient(Patient pat) {
         try {
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFilePatient = new FileInputStream(filePath + "Patients.xml");
+            FileInputStream inputFilePatient = new FileInputStream(FILEPATH + "Patient.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -167,16 +176,18 @@ public class ModifyXMLFile {
             newPatient.appendChild(insee);
 
             newPatient.setAttribute("id", pat.getNumINSEE());
-//            newMedecin.getAttributes().getNamedItem("id").setTextContent(newIdMed);
 
             root.item(0).appendChild(newPatient);
 
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docPatient);
-            System.out.println("-----------Modified File-----------");
-            StreamResult consoleResult = new StreamResult("Patients2.xml");
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Patient.xml");
+//            StreamResult consoleResult = new StreamResult(FILEPATH + "Patient2.xml");
             transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
@@ -191,15 +202,14 @@ public class ModifyXMLFile {
             String prenom = pat.getPrenom();
             String nom = pat.getNom();
 
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFilePatient = new FileInputStream(filePath + "Patients.xml");
+            FileInputStream inputFilePatient = new FileInputStream(FILEPATH + "Patient.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             InputSource isPatient = new InputSource(inputFilePatient);
             Document docPatient = docBuilder.parse(isPatient);
 
-            NodeList patient = docPatient.getElementsByTagName("Patient");
+            NodeList patient = docPatient.getElementsByTagName("patient");
 
             int k = 0;
             Node patients = patient.item(k);
@@ -227,6 +237,14 @@ public class ModifyXMLFile {
                     }
                 }
             }
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            DOMSource source = new DOMSource(docPatient);
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Patient.xml");
+            transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -236,9 +254,8 @@ public class ModifyXMLFile {
 
     public static void addFiches(FicheDeSoins f) {
         try {
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileFiche = new FileInputStream(filePath + "Fiches.xml");
-
+            FileInputStream inputFileFiche = new FileInputStream(FILEPATH + "Fiches.xml");
+            
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             InputSource isFiche = new InputSource(inputFileFiche);
@@ -248,7 +265,7 @@ public class ModifyXMLFile {
             NodeList fiches = docFiche.getElementsByTagName("ficheDeSoins");
             Node fiche = fiches.item(0);
 
-            Element newFiche = docFiche.createElement("fiche");
+            Element newFiche = docFiche.createElement("ficheDeSoins");
             Element date = docFiche.createElement("date");
             Element medecin = docFiche.createElement("medecin");
             Element patient = docFiche.createElement("patient");
@@ -270,17 +287,17 @@ public class ModifyXMLFile {
                 Element acte = docFiche.createElement("acte");
                 Element code = docFiche.createElement("code");
                 Element coef = docFiche.createElement("coef");
+                Element type = docFiche.createElement("type");
                 Element observation = docFiche.createElement("observation");
-                Element nomActe = docFiche.createElement("nomActe");
-                nomActe.appendChild(docFiche.createTextNode(listeActes.get(i).getNomActe()));
                 code.appendChild(docFiche.createTextNode(listeActes.get(i).toStringCode()));
                 int coefActe = listeActes.get(i).getCoef();
                 String coefStr = Integer.toString(coefActe);
                 coef.appendChild(docFiche.createTextNode(coefStr));
-                observation.appendChild(docFiche.createTextNode(listeActes.get(i).getObservation()));
-                acte.appendChild(nomActe);
+                type.appendChild(docFiche.createTextNode(listeActes.get(i).getTypeIntString()));
+                observation.appendChild(docFiche.createTextNode(listeActes.get(i).getObservations()));
                 acte.appendChild(code);
                 acte.appendChild(coef);
+                acte.appendChild(type);
                 acte.appendChild(observation);
                 newFiche.appendChild(acte);
             }
@@ -289,20 +306,22 @@ public class ModifyXMLFile {
             String newIdFiche = Integer.toString(newId);
             newFiche.setAttribute("id", newIdFiche);
 
-//            newMedecin.getAttributes().getNamedItem("id").setTextContent(newIdMed);
             root.item(0).appendChild(newFiche);
 
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docFiche);
-            System.out.println("-----------Modified File-----------");
-            StreamResult consoleResult = new StreamResult("Fiche2.xml");
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Fiches.xml");
+                
             transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } 
     }
 
     public static void modifyFiche(String id, FicheDeSoins f) {
@@ -312,8 +331,7 @@ public class ModifyXMLFile {
             Patient pat = f.getPatient();
 
             //System.out.println("listeActe debut: " + listeActe.size());
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileFiche = new FileInputStream(filePath + "Fiches.xml");
+            FileInputStream inputFileFiche = new FileInputStream(FILEPATH + "Fiches.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -323,10 +341,8 @@ public class ModifyXMLFile {
             NodeList fiche = docFiche.getElementsByTagName("ficheDeSoins");
 
             int k = 0;
-            System.out.println("fiche.length= " + fiche.getLength());
             Node fiches = fiche.item(k);
             NodeList childNodesFiche = fiches.getChildNodes();
-            System.out.println("childNodesFiche= " + childNodesFiche.getLength());
             while (k < fiche.getLength() && !id.equals(fiches.getAttributes().getNamedItem("id").getTextContent().trim())) {
                 //System.out.println("id= " + fiches.getAttributes().getNamedItem("id").getTextContent().trim());
                 k++;
@@ -336,10 +352,8 @@ public class ModifyXMLFile {
 
             for (int j = 0; j < childNodesFiche.getLength(); j++) {
                 Node item = childNodesFiche.item(j);
-                //System.out.println("CNF.item(j)= " + item);
                 if (item.getNodeType() == Node.ELEMENT_NODE) {
                     if ("medecin".equalsIgnoreCase(item.getNodeName())) {
-                        System.out.println("OK: " + med.getId());
                         NamedNodeMap attribute = item.getAttributes();
                         Node nodeAttr = attribute.getNamedItem("id");
                         nodeAttr.setTextContent(med.getId());
@@ -351,6 +365,9 @@ public class ModifyXMLFile {
                         Node nodeAttr = attribute.getNamedItem("id");
                         nodeAttr.setTextContent(pat.getNumINSEE());
                     }
+                    if ("date".equalsIgnoreCase(item.getNodeName())) {
+                        item.setTextContent( date.getFormattedDate());
+                    }
                 }
 
             }
@@ -358,9 +375,11 @@ public class ModifyXMLFile {
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docFiche);
-            System.out.println("-----------Modified File-----------");
-            StreamResult consoleResult = new StreamResult("Fiche2.xml");
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Fiches.xml");
             transformer.transform(source, consoleResult);
         } catch (Exception e) {
             e.printStackTrace();
@@ -375,11 +394,10 @@ public class ModifyXMLFile {
             String code = a.toStringCode();
             int coef = a.getCoef();
             String coefStr = Integer.toString(coef);
-            String observation = a.getObservation();
+            String observation = a.getObservations();
             String nomActeCourant = null;
 
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileFiche = new FileInputStream(filePath + "Fiches.xml");
+            FileInputStream inputFileFiche = new FileInputStream(FILEPATH + "Fiches.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -444,6 +462,9 @@ public class ModifyXMLFile {
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docFiche);
             System.out.println("-----------Modified File-----------");
             StreamResult consoleResult = new StreamResult("Fiche2.xml");
@@ -457,15 +478,13 @@ public class ModifyXMLFile {
     public static void addFicheActe(String id, Acte a) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         try {
             String nom = a.getNomActe();
-            System.out.println("NOM: " + nom);
             String code = a.toStringCode();
             int coef = a.getCoef();
             String coefStr = Integer.toString(coef);
-            String observation = a.getObservation();
-            String nomActeCourant = null;
+            String type = a.getTypeIntString();
+            String observation = a.getObservations();
 
-            String filePath = "C:\\Users\\Benhadj\\Documents\\NetBeansProjects\\projet_TIS3(2)\\src\\donnees\\";
-            FileInputStream inputFileFiche = new FileInputStream(filePath + "Fiches.xml");
+            FileInputStream inputFileFiche = new FileInputStream(FILEPATH + "Fiches.xml");
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -475,12 +494,9 @@ public class ModifyXMLFile {
             NodeList fiche = docFiche.getElementsByTagName("ficheDeSoins");
 
             int k = 0;
-            System.out.println("fiche.length= " + fiche.getLength());
             Node fiches = fiche.item(k);
             NodeList childNodesFiche = fiches.getChildNodes();
-            System.out.println("childNodesFiche= " + childNodesFiche.getLength());
             while (k < fiche.getLength() && !id.equals(fiches.getAttributes().getNamedItem("id").getTextContent().trim())) {
-                System.out.println("id= " + fiches.getAttributes().getNamedItem("id").getTextContent().trim());
                 k++;
                 fiches = fiche.item(k);
                 childNodesFiche = fiches.getChildNodes();
@@ -489,24 +505,26 @@ public class ModifyXMLFile {
             Element acte = docFiche.createElement("acte");
             Element codeAdd = docFiche.createElement("code");
             Element coefAdd = docFiche.createElement("coef");
-            Element observationAdd = docFiche.createElement("observation");
-            Element nomActeAdd = docFiche.createElement("nomActe");
-            nomActeAdd.appendChild(docFiche.createTextNode(nom));
+            Element typeAdd = docFiche.createElement("type");
+            Element observationAdd = docFiche.createElement("observations");
             codeAdd.appendChild(docFiche.createTextNode(code));
             coefAdd.appendChild(docFiche.createTextNode(coefStr));
+            typeAdd.appendChild(docFiche.createTextNode(type));
             observationAdd.appendChild(docFiche.createTextNode(observation));
-            acte.appendChild(nomActeAdd);
             acte.appendChild(codeAdd);
             acte.appendChild(coefAdd);
+            acte.appendChild(typeAdd);
             acte.appendChild(observationAdd);
             fiches.appendChild(acte);
             
             // write the content on console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(docFiche);
-            System.out.println("-----------Modified File-----------");
-            StreamResult consoleResult = new StreamResult("Fiche2.xml");
+            StreamResult consoleResult = new StreamResult(FILEPATH + "Fiches.xml");
             transformer.transform(source, consoleResult);
             
         } catch (Exception e) {
@@ -516,33 +534,34 @@ public class ModifyXMLFile {
 
     public static void main(String[] args) throws FileNotFoundException, ParserConfigurationException, IOException, SAXException, TransformerException {
 
-        Medecin med = new Medecin("BHS", "Meissa", "Oncologue", "0498758496", "4");
-        //addMedecin(med);
+//        Medecin med = new Medecin("BHS", "Meissa", "Oncologue", "0498758496", "4");
+//        addMedecin(med);
 
-        Patient pat = new Patient("BHS", "Meissa", "14 avenue Z", "125");
-        //addPatient(pat);
+//        Patient pat = new Patient("BHS", "Meissa", "14 avenue Z", "245093820000590");
+//        addPatient(pat);
+//        ModifyXMLFile.modifyPatient("245093820000590", pat);
 
-        Code code1 = Code.CS;
-        Code code2 = Code.CSC;
+//        Code code1 = Code.CS;
+//        Code code2 = Code.CSC;
+//
+//        Acte acte1 = new Acte(code1, 1, TypeActe.DIAGNOSTIQUE, "observation50");
+//        Acte acte2 = new Acte(code2, 1, TypeActe.THERAPEUTIQUE, "observation52");
+//
+//        Date date = new Date(15, 11, 2022);
+//
+//        FicheDeSoins fs = new FicheDeSoins(pat, med, date, "50");
+//        fs.ajouterActe(acte1);
+//        fs.ajouterActe(acte2);
 
-        Acte acte1 = new Acte(code1, 1);
-        Acte acte2 = new Acte(code2, 1);
+//        addFiches(fs);
 
-        Date date = new Date(15, 11, 2022);
+//        Medecin medModif = new Medecin("Bono", "Gilbert", "ORL", "0606060606", "6");
+//        Acte acte3 = new Acte(code1, 10000, TypeActe.DIAGNOSTIQUE, "AZZZ");
+//
+//        FicheDeSoins fsModif = new FicheDeSoins(pat, medModif, date, "56");
+//        addFicheActe("1", acte3);
 
-        FicheDeSoins fs = new FicheDeSoins(pat, med, date);
-        fs.ajouterActe(acte1);
-        fs.ajouterActe(acte2);
-
-        addFiches(fs);
-
-        Medecin medModif = new Medecin("Bono", "Gilbert", "ORL", "0606060606", "2");
-        Acte acte3 = new Acte(code1, 10000, "consultation au cabinet", "ZZZZ");
-
-        FicheDeSoins fsModif = new FicheDeSoins(pat, medModif, date);
-        addFicheActe("1", acte3);
-
-        //modifyFiche("1", fsModif);
+//        modifyFiche("1", fsModif);
     }
 
 }

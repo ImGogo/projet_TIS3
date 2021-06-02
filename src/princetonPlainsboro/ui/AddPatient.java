@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import princetonPlainsboro.fc.ModifyXMLFile;
 import princetonPlainsboro.fc.Patient;
 
 /**
@@ -209,6 +210,7 @@ public class AddPatient extends javax.swing.JFrame {
                     this.adressField.getText(), 
                     this.inseeField.getText());
             mainWindow.ajouterPatient(tmp);
+            ModifyXMLFile.addPatient(tmp);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Erreurs dans un ou plusieurs champs");
@@ -270,21 +272,21 @@ public class AddPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_adressFieldKeyReleased
 
     private void inseeFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inseeFieldKeyReleased
-        JTextField textField = (JTextField) evt.getSource();
-        String validString = "^([a-zA-Z0-9]-* *)+$";
+        String text = ((JTextField) evt.getSource()).getText();
         
-        if(!textField.getText().matches(validString)){
-            if(textField.getText().matches("")){
-                this.inseeInvalidLbl.setText("Ne peut être vide");
-            } else {
-                this.inseeInvalidLbl.setText("Caractère(s) invalides");
-            }
-            isValid = false;
+        if( !text.matches("^[0-9]{15}$") ){
+            this.inseeInvalidLbl.setText("15 chiffres sont attendus");
             this.inseeInvalidLbl.setVisible(true); 
-        } 
+            isValid = false;
+        }
+        else if( !Patient.verifyINSEE(text) ) {
+            this.inseeInvalidLbl.setText("Numéro invalide");
+            this.inseeInvalidLbl.setVisible(true); 
+            isValid = false;
+        }
         else {
-            isValid = true;
             this.inseeInvalidLbl.setVisible(false);
+            isValid = true;
         }
     }//GEN-LAST:event_inseeFieldKeyReleased
     

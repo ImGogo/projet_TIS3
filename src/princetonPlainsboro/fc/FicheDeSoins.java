@@ -17,6 +17,14 @@ public class FicheDeSoins {
         this.id = id;
         actes = new Vector<Acte>();   // liste vide
         }
+    
+    public FicheDeSoins(Patient patient, Medecin medecin, Date date, String id, java.util.List<Acte> actes) {
+        this.patient = patient;
+        this.medecin = medecin;
+        this.date = date;
+        this.id = id;
+        actes = new Vector<Acte>(actes);   // liste vide
+        }
 
     public String getId() {
         return id;
@@ -45,6 +53,18 @@ public class FicheDeSoins {
             System.out.println("    > " + a.toString());
             }
         }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
     
     public double coutTotal() {
         double total = 0;

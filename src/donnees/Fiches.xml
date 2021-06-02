@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
-
-<Fiches>
+--><Fiches>
     <ficheDeSoins id="1">
-    <date>2006-01-06</date>
-    <medecin id="1"></medecin>
-    <patient id="245093820000590"></patient>
+    <date>2006-1-6</date>
+    <medecin id="1"/>
+    <patient id="245093820000590"/>
     <acte>
         <code>CS</code>
         <coef>1</coef>
@@ -32,8 +30,8 @@ and open the template in the editor.
   
   <ficheDeSoins id="2">
     <date>2005-10-23</date>
-    <medecin id="2"></medecin>
-    <patient id="106117499830050"></patient>
+    <medecin id="2"/>
+    <patient id="106117499830050"/>
     <acte>
         <code>CSC</code>
         <coef>1</coef>
@@ -49,9 +47,9 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="3">
-    <date>2006-01-03</date>
-    <medecin id="3"></medecin>
-    <patient id="250117414050005"></patient>
+    <date>2006-1-4</date>
+    <medecin id="3"/>
+    <patient id="250117414050005"/>
     <acte>
         <code>CSC</code>
         <coef>2</coef>
@@ -62,8 +60,8 @@ and open the template in the editor.
   
   <ficheDeSoins id="4">
     <date>2005-11-13</date>
-    <medecin id="3"></medecin>
-    <patient id="250117414050005"></patient>
+    <medecin id="3"/>
+    <patient id="250117414050005"/>
     <acte>
         <code>KE</code>
         <coef>1</coef>
@@ -74,8 +72,8 @@ and open the template in the editor.
   
   <ficheDeSoins id="5">
     <date>2005-08-31</date>
-    <medecin id="4"></medecin>
-    <patient id="160123800116090"></patient>
+    <medecin id="4"/>
+    <patient id="160123800116090"/>
     <acte>
         <code>CS</code>
         <coef>1</coef>
@@ -92,8 +90,8 @@ and open the template in the editor.
   
   <ficheDeSoins id="6">
     <date>2005-08-31</date>
-    <medecin id="5"></medecin>
-    <patient id="180024299013"></patient>
+    <medecin id="5"/>
+    <patient id="180024299013414"/>
     <acte>
         <code>CS</code>
         <coef>1</coef>
@@ -131,5 +129,32 @@ and open the template in the editor.
         <observations>Observation 15</observations>
     </acte>
   </ficheDeSoins>
-  
+  <ficheDeSoins id="7">
+      <date>2021-6-1</date>
+      <medecin id="3"/>
+      <patient id="245093820000590"/>
+      <acte>
+          <code>CS</code>
+          <coef>1</coef>
+          <type>1</type>
+          <observations>toto</observations>
+      </acte>
+  </ficheDeSoins>
+<ficheDeSoins id="8">
+        <date>2021-6-2</date>
+        <medecin id="6"/>
+        <patient id="125487548758128"/>
+    <acte>
+            <code>CS</code>
+            <coef>2</coef>
+            <type>1</type>
+            <observations>MJ a diagnostiqué Abby Johnson</observations>
+        </acte>
+    <acte>
+            <code>CSC</code>
+            <coef>3</coef>
+            <type>1</type>
+            <observations>aorte bloquée</observations>
+        </acte>
+    </ficheDeSoins>
 </Fiches>

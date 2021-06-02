@@ -27,6 +27,13 @@ public class Acte {
     public TypeActe getType() {
         return type;
     }
+    
+    public String getTypeIntString(){
+        if(type == TypeActe.DIAGNOSTIQUE)
+            return "1";
+        else
+            return "2";
+    }
 
     public String getObservations() {
         return observations;

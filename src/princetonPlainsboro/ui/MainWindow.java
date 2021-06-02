@@ -15,12 +15,16 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -37,6 +41,7 @@ import princetonPlainsboro.fc.LectureXMLDossier;
 import princetonPlainsboro.fc.LectureXMLMedecin;
 import princetonPlainsboro.fc.LectureXMLPatient;
 import princetonPlainsboro.fc.Medecin;
+import princetonPlainsboro.fc.ModifyXMLFile;
 import princetonPlainsboro.fc.Patient;
 import princetonPlainsboro.fc.TypeActe;
 
@@ -94,21 +99,19 @@ public class MainWindow extends javax.swing.JFrame {
         addFicheBtn = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        editFicheBtn = new javax.swing.JButton();
+        saveFicheBtn = new javax.swing.JButton();
         addActeBtn = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        ficheMedecinTxtF = new javax.swing.JTextField();
-        fichePatientTxtF = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        ficheDateTxtF = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        ficheCoutActeTxtf = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         ficheObservationsTxtf = new javax.swing.JTextArea();
@@ -116,14 +119,22 @@ public class MainWindow extends javax.swing.JFrame {
         fichesActesCBox = new javax.swing.JComboBox<>();
         typeDiagnostiqueBtn = new javax.swing.JRadioButton();
         typeTherapeutique = new javax.swing.JRadioButton();
+        ficheDayBox = new javax.swing.JComboBox<>();
+        ficheMonthBox = new javax.swing.JComboBox<>();
+        ficheYearBox = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        ficheCoutTotalLbl = new javax.swing.JLabel();
+        fichePatientsBox = new javax.swing.JComboBox<>();
+        ficheMedecinsBox = new javax.swing.JComboBox<>();
+        ficheCoutActeLbl = new javax.swing.JLabel();
         medecinPnl = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         medecinLst = new javax.swing.JList<>();
         addMedecinBtn = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         saveMedecinBtn = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
@@ -141,12 +152,13 @@ public class MainWindow extends javax.swing.JFrame {
         patientListPnl = new javax.swing.JPanel();
         patientListScroll = new javax.swing.JScrollPane();
         patientLst = new javax.swing.JList<>();
-        filterPatientBtn = new javax.swing.JButton();
         addPatientBtn = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox<>();
         viewPatientPnl = new javax.swing.JPanel();
         printPatientBtn = new javax.swing.JButton();
         savePatientBtn = new javax.swing.JButton();
-        addActePatientBtn = new javax.swing.JButton();
+        accessFichesPatientBtn = new javax.swing.JButton();
         infoPatientPnl = new javax.swing.JPanel();
         nameLbl = new javax.swing.JLabel();
         surnameLbl = new javax.swing.JLabel();
@@ -159,6 +171,8 @@ public class MainWindow extends javax.swing.JFrame {
         listeActePatientLbl = new javax.swing.JLabel();
         listeActePatientSPnl = new javax.swing.JScrollPane();
         listeActepatientTbl = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        patientCoutTotalLbl = new javax.swing.JLabel();
         editPatientBtn = new javax.swing.JToggleButton();
         jPanel8 = new javax.swing.JPanel();
 
@@ -191,6 +205,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainTabbedPanel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         mainTabbedPanel.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -202,6 +217,8 @@ public class MainWindow extends javax.swing.JFrame {
         jSplitPane3.setDividerLocation(300);
         jSplitPane3.setDividerSize(8);
 
+        jPanel14.setEnabled(false);
+
         fichesLst.setModel(new javax.swing.AbstractListModel<FicheDeSoins>() {
             FicheDeSoins[] strings = {  };
             public int getSize() { return strings.length; }
@@ -209,16 +226,32 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(fichesLst);
 
-        addFicheBtn.setText("Ajouter");
+        addFicheBtn.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        addFicheBtn.setText("+");
         addFicheBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFicheBtnActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date ^", "Date v", "Coût ^", "Coût v" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Trier par :");
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun", "Patient", "Médecin" }));
+        jComboBox4.setSelectedItem(null);
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Filtrer par :");
 
         org.jdesktop.layout.GroupLayout jPanel14Layout = new org.jdesktop.layout.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -226,39 +259,59 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
+                .add(jScrollPane4)
+                .addContainerGap())
+            .add(jPanel14Layout.createSequentialGroup()
+                .add(23, 23, 23)
+                .add(addFicheBtn)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel14Layout.createSequentialGroup()
-                        .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(jPanel14Layout.createSequentialGroup()
-                        .add(23, 23, 23)
-                        .add(addFicheBtn)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel14Layout.createSequentialGroup()
+                        .add(jLabel13)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel14Layout.createSequentialGroup()
                         .add(jLabel12)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(30, 30, 30))))
+                        .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(16, 16, 16))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
-                .add(14, 14, 14)
-                .add(jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(addFicheBtn)
-                    .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel12))
+                .addContainerGap()
+                .add(jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel14Layout.createSequentialGroup()
+                        .add(jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel13))
+                        .add(18, 18, 18)
+                        .add(jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel12)))
+                    .add(addFicheBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .add(19, 19, 19))
         );
 
         jSplitPane3.setLeftComponent(jPanel14);
 
         jButton12.setText("Imprimer");
 
-        jButton13.setText("Modifier");
+        editFicheBtn.setText("Modifier");
+        editFicheBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editFicheBtnActionPerformed(evt);
+            }
+        });
 
-        jButton14.setText("Enregistrer");
+        saveFicheBtn.setText("Enregistrer");
+        saveFicheBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFicheBtnActionPerformed(evt);
+            }
+        });
 
         addActeBtn.setText("Ajouter un acte");
         addActeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -267,23 +320,17 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setText("Nom du médecin :");
+        jPanel16.setEnabled(false);
 
-        jLabel15.setText("Nom du patient :");
+        jLabel14.setText("Médecin :");
 
-        ficheMedecinTxtF.setEditable(false);
-
-        fichePatientTxtF.setEditable(false);
+        jLabel15.setText("Patient:");
 
         jLabel16.setText("Date :");
-
-        ficheDateTxtF.setEditable(false);
 
         jLabel17.setText("Type :");
 
         jLabel18.setText("Coût :");
-
-        ficheCoutActeTxtf.setEditable(false);
 
         jLabel19.setText("Observations :");
 
@@ -307,10 +354,30 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         typeBtnGrp.add(typeDiagnostiqueBtn);
-        typeDiagnostiqueBtn.setText("Diagnotique");
+        typeDiagnostiqueBtn.setText("Diagnostique");
 
         typeBtnGrp.add(typeTherapeutique);
         typeTherapeutique.setText("Thérapeutique");
+
+        ficheDayBox.setEditable(true);
+        ficheDayBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        ficheDayBox.setEnabled(false);
+        ficheDayBox.setFocusable(false);
+
+        ficheMonthBox.setEditable(true);
+        ficheMonthBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        ficheMonthBox.setEnabled(false);
+
+        ficheYearBox.setEditable(true);
+        ficheYearBox.setEnabled(false);
+
+        jLabel23.setText("Coût total:");
+
+        fichePatientsBox.setEditable(true);
+        fichePatientsBox.setEnabled(false);
+
+        ficheMedecinsBox.setEditable(true);
+        ficheMedecinsBox.setEnabled(false);
 
         org.jdesktop.layout.GroupLayout jPanel16Layout = new org.jdesktop.layout.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -329,20 +396,20 @@ public class MainWindow extends javax.swing.JFrame {
                                         .add(jLabel18)))
                                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jPanel16Layout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(ficheCoutActeTxtf))
-                                    .add(jPanel16Layout.createSequentialGroup()
                                         .add(54, 54, 54)
                                         .add(typeDiagnostiqueBtn)
                                         .add(46, 46, 46)
-                                        .add(typeTherapeutique)
-                                        .add(0, 0, Short.MAX_VALUE))))
+                                        .add(typeTherapeutique))
+                                    .add(jPanel16Layout.createSequentialGroup()
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(ficheCoutActeLbl)))
+                                .add(0, 0, Short.MAX_VALUE))
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel16Layout.createSequentialGroup()
                                 .add(1, 1, 1)
                                 .add(jLabel19)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 446, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                    .add(jPanel16Layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel16Layout.createSequentialGroup()
                         .add(24, 24, 24)
                         .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel16Layout.createSequentialGroup()
@@ -350,35 +417,52 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(fichesActesCBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .add(jPanel16Layout.createSequentialGroup()
-                                .add(jLabel14)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(ficheMedecinTxtF))
-                            .add(jPanel16Layout.createSequentialGroup()
-                                .add(jLabel16)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(ficheDateTxtF))
-                            .add(jPanel16Layout.createSequentialGroup()
                                 .add(jLabel15)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(fichePatientTxtF)))))
-                .add(161, 161, 161))
+                                .add(fichePatientsBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jPanel16Layout.createSequentialGroup()
+                                .add(jLabel14)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(ficheMedecinsBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jPanel16Layout.createSequentialGroup()
+                                .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel16Layout.createSequentialGroup()
+                                        .add(jLabel23)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(ficheCoutTotalLbl))
+                                    .add(jPanel16Layout.createSequentialGroup()
+                                        .add(jLabel16)
+                                        .add(18, 18, 18)
+                                        .add(ficheDayBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(ficheMonthBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(ficheYearBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(0, 0, Short.MAX_VALUE)))))
+                .add(185, 185, 185))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel16Layout.createSequentialGroup()
-                .add(22, 22, 22)
+                .add(21, 21, 21)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel16)
-                    .add(ficheDateTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(ficheDayBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(ficheMonthBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(ficheYearBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel14)
-                    .add(ficheMedecinTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(19, 19, 19)
+                    .add(ficheMedecinsBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(17, 17, 17)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel15)
-                    .add(fichePatientTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(27, 27, 27)
+                    .add(fichePatientsBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 15, Short.MAX_VALUE)
+                .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jLabel23, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(ficheCoutTotalLbl, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(18, 18, 18)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(fichesActesCBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -390,12 +474,12 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel18)
-                    .add(ficheCoutActeTxtf, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(ficheCoutActeLbl))
                 .add(18, 18, 18)
                 .add(jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel19)
-                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 162, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(403, Short.MAX_VALUE))
+                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 142, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(40, 40, 40))
         );
 
         org.jdesktop.layout.GroupLayout jPanel15Layout = new org.jdesktop.layout.GroupLayout(jPanel15);
@@ -404,9 +488,9 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel15Layout.createSequentialGroup()
                 .add(50, 50, 50)
-                .add(jButton13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(editFicheBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(33, 33, 33)
-                .add(jButton14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(saveFicheBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(27, 27, 27)
                 .add(jButton12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -422,13 +506,13 @@ public class MainWindow extends javax.swing.JFrame {
             .add(jPanel15Layout.createSequentialGroup()
                 .add(16, 16, 16)
                 .add(jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(editFicheBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(saveFicheBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(addActeBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jPanel16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jSplitPane3.setRightComponent(jPanel15);
@@ -439,14 +523,14 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jSplitPane3)
+                .add(jSplitPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1045, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jSplitPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 594, Short.MAX_VALUE)
+                .add(jSplitPane3)
                 .addContainerGap())
         );
 
@@ -469,9 +553,15 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel21.setText("Filtrer par :");
 
-        jLabel8.setText("Trier par :");
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun", "Patient" }));
+        jComboBox5.setSelectedItem(null);
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -480,17 +570,15 @@ public class MainWindow extends javax.swing.JFrame {
             .add(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel10Layout.createSequentialGroup()
-                        .add(jScrollPane3)
-                        .addContainerGap())
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                     .add(jPanel10Layout.createSequentialGroup()
                         .add(23, 23, 23)
                         .add(addMedecinBtn)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 44, Short.MAX_VALUE)
-                        .add(jLabel8)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel21)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(30, 30, 30))))
+                        .add(jComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -498,8 +586,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(14, 14, 14)
                 .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(addMedecinBtn)
-                    .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel8))
+                    .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel21)))
                 .add(18, 18, 18)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
                 .addContainerGap())
@@ -554,7 +643,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(jLabel20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(medecinSurnameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -618,7 +707,7 @@ public class MainWindow extends javax.swing.JFrame {
             medecinPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(medecinPnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jSplitPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                .add(jSplitPane2)
                 .addContainerGap())
         );
         medecinPnlLayout.setVerticalGroup(
@@ -641,17 +730,20 @@ public class MainWindow extends javax.swing.JFrame {
         });
         patientListScroll.setViewportView(patientLst);
 
-        filterPatientBtn.setText("Filtrer");
-        filterPatientBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterPatientBtnActionPerformed(evt);
-            }
-        });
-
         addPatientBtn.setText("Ajouter");
         addPatientBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPatientBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("Filtrer par :");
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun", "Medecin" }));
+        jComboBox6.setSelectedItem(null);
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
             }
         });
 
@@ -660,23 +752,28 @@ public class MainWindow extends javax.swing.JFrame {
         patientListPnlLayout.setHorizontalGroup(
             patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(patientListPnlLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(patientListScroll, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .add(patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(patientListPnlLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(patientListScroll, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, patientListPnlLayout.createSequentialGroup()
+                        .add(44, 44, 44)
+                        .add(addPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel22)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jComboBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, patientListPnlLayout.createSequentialGroup()
-                .add(44, 44, 44)
-                .add(addPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(filterPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(23, 23, 23))
         );
         patientListPnlLayout.setVerticalGroup(
             patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(patientListPnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(addPatientBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(filterPatientBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(addPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(patientListPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jComboBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel22)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(patientListScroll, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                 .addContainerGap())
@@ -698,7 +795,12 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        addActePatientBtn.setText("Ajouter un acte");
+        accessFichesPatientBtn.setText("Fiches de soins du patient ");
+        accessFichesPatientBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accessFichesPatientBtnActionPerformed(evt);
+            }
+        });
 
         nameLbl.setText("Nom :");
 
@@ -724,7 +826,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nom de l'acte", "Nom du médecin", "Date de réalisation", "Code des coûts", "Coût total ( € )"
+                "Nom de l'acte", "Nom du médecin", "Date de réalisation", "Code des coûts", "Coût (€)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -745,6 +847,8 @@ public class MainWindow extends javax.swing.JFrame {
             listeActepatientTbl.getColumnModel().getColumn(3).setResizable(false);
             listeActepatientTbl.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        jLabel3.setText("Coût total:");
 
         org.jdesktop.layout.GroupLayout infoPatientPnlLayout = new org.jdesktop.layout.GroupLayout(infoPatientPnl);
         infoPatientPnl.setLayout(infoPatientPnlLayout);
@@ -771,8 +875,12 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(org.jdesktop.layout.GroupLayout.LEADING, infoPatientPnlLayout.createSequentialGroup()
                             .add(patientInseeLbl)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(patientInseeTxtF))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(patientInseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 181, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(80, 80, 80)
+                            .add(jLabel3)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(patientCoutTotalLbl))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         infoPatientPnlLayout.setVerticalGroup(
             infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -790,7 +898,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(patientInseeLbl)
-                    .add(patientInseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(patientInseeTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3)
+                    .add(patientCoutTotalLbl))
                 .add(18, 18, 18)
                 .add(listeActePatientLbl)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -816,8 +926,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(savePatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(27, 27, 27)
                 .add(printPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 196, Short.MAX_VALUE)
-                .add(addActePatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(accessFichesPatientBtn)
                 .add(36, 36, 36))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, viewPatientPnlLayout.createSequentialGroup()
                 .addContainerGap()
@@ -833,7 +943,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(viewPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(savePatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(printPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(addActePatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(accessFichesPatientBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(0, 0, Short.MAX_VALUE))
                     .add(editPatientBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(18, 18, 18)
@@ -866,7 +976,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 1056, Short.MAX_VALUE)
+            .add(0, 1057, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -894,6 +1004,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.patientLst.setFixedCellHeight(30);
         this.patientLst.setModel(patientJList.getModel());
         this.patientLst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        initializeYearBox();
         this.patientLst.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
@@ -908,7 +1019,6 @@ public class MainWindow extends javax.swing.JFrame {
                     for(FicheDeSoins f : selectedPatient.getListeFiches() ){
                         Date date = f.getDate();
                         Medecin medecin = f.getMedecin();
-                        System.out.println(f.actesToStringList());
                         for(Acte a: f.getActes()){
                             model.addRow( new String[] {
                                 a.getNomActe(), 
@@ -955,10 +1065,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
     }
-    private void filterPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterPatientBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_filterPatientBtnActionPerformed
-
     private void addMedecinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMedecinBtnActionPerformed
         int medecinIndex = this.medecinLst.getSelectedIndex();
         AddMedecin ap = new AddMedecin(this);
@@ -969,17 +1075,6 @@ public class MainWindow extends javax.swing.JFrame {
         this.patientLst.setModel(patientJList.getModel());
         this.patientLst.setSelectedIndex( medecinIndex );
     }//GEN-LAST:event_addMedecinBtnActionPerformed
-
-    private void addFicheBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFicheBtnActionPerformed
-        int ficheIndex = this.fichesLst.getSelectedIndex();
-        AddFiche ap = new AddFiche(this, dm);
-        ap.setVisible(true);
-        ap.setLocationRelativeTo(null);
-        ap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JList patientJList = new JList(dm.getPatients().toArray());
-        this.patientLst.setModel(patientJList.getModel());
-        this.patientLst.setSelectedIndex( ficheIndex );
-    }//GEN-LAST:event_addFicheBtnActionPerformed
 
     private void printPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPatientBtnActionPerformed
         // TODO add your handling code here:
@@ -1013,6 +1108,9 @@ public class MainWindow extends javax.swing.JFrame {
         selectedPatient.setPrenom( this.patientSurnameTxtF.getText() );
         selectedPatient.setAdresse( this.patientAdressTxtF.getText() );
         selectedPatient.setNumINSEE( this.patientInseeTxtF.getText() );
+        
+        
+//        ModifyXMLFile.modifyPatient(selectedPatient.getNumINSEE(), selectedPatient);
         this.patientLst.updateUI();
         togglePatientTxtF(false);
         this.editPatientBtn.setSelected(false);
@@ -1062,10 +1160,18 @@ public class MainWindow extends javax.swing.JFrame {
         Medecin selectedMedecin = medecinLst.getSelectedValue();
         if( selectedMedecin == null ) return;
         
-        selectedMedecin.setNom( this.medecinNameTxtF.getText() );
-        selectedMedecin.setPrenom( this.medecinSurnameTxtF.getText() );
-        selectedMedecin.setSpecialite( this.medecinSpecialiteTxtF.getText() );
-
+        Medecin tmp = new Medecin( 
+                this.medecinNameTxtF.getText(),
+                this.medecinSurnameTxtF.getText(),
+                this.medecinSpecialiteTxtF.getText(),
+                this.medecinTelephoneTxtF.getText()
+        );
+        selectedMedecin.setNom( tmp.getNom() );
+        selectedMedecin.setPrenom( tmp.getPrenom() );
+        selectedMedecin.setSpecialite( tmp.getSpecialite() );
+        selectedMedecin.setTelephone( tmp.getTelephone() );
+        
+        ModifyXMLFile.modifyMedecin(selectedMedecin.getId(), tmp);
         this.medecinLst.updateUI();
         this.editMedecinBtn.setSelected(false);
         this.editMedecinBtn.setText("Modifier");
@@ -1100,13 +1206,361 @@ public class MainWindow extends javax.swing.JFrame {
         JList patientJList = new JList(dm.getPatients().toArray());
         this.patientLst.setModel(patientJList.getModel());
     }//GEN-LAST:event_addActeBtnActionPerformed
+
+    private void addFicheBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFicheBtnActionPerformed
+        int ficheIndex = this.fichesLst.getSelectedIndex();
+        AddFiche ap = new AddFiche(this, dm);
+        ap.setVisible(true);
+        ap.setLocationRelativeTo(null);
+        ap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JList patientJList = new JList(dm.getPatients().toArray());
+        this.patientLst.setModel(patientJList.getModel());
+        this.patientLst.setSelectedIndex( ficheIndex );
+    }//GEN-LAST:event_addFicheBtnActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        JComboBox c = (JComboBox) evt.getSource();
+        JList list;
+        switch(c.getSelectedIndex()){
+            case 0:
+                list = new JList(this.sortFichesByDateCroissante().toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            case 1:
+                list = new JList(this.sortFichesByDateDecroissante().toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            case 2:
+                list = new JList(this.sortFichesByCoutCroissant().toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            case 3:
+                list = new JList(this.sortFichesByCoutDecroissant().toArray());
+                this.fichesLst.setModel(list.getModel());
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        JComboBox c = (JComboBox) evt.getSource();
+        JList list;
+        switch(c.getSelectedIndex()){
+            case 0:
+                list = new JList(dm.getFiches().toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            case 1:
+                DefaultComboBoxModel<Patient> modelPatient = new DefaultComboBoxModel<>( new Vector<Patient>(dm.getPatients()));
+                JComboBox<Patient> listPatientsCBox = new JComboBox<>(modelPatient);
+
+                JOptionPane.showMessageDialog(null, listPatientsCBox, "Selectionner le patient", JOptionPane.PLAIN_MESSAGE);
+                list = new JList( this.filterFichesByPatient( (Patient) listPatientsCBox.getSelectedItem() ).toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            case 2:
+                DefaultComboBoxModel<Medecin> modelMedecin = new DefaultComboBoxModel<>( new Vector<Medecin>(dm.getMedecins()));
+                JComboBox<Medecin> listMedecinsCBox = new JComboBox<>(modelMedecin);
+
+                JOptionPane.showMessageDialog(null, listMedecinsCBox, "Selectionner le médecin", JOptionPane.PLAIN_MESSAGE);
+                list = new JList( this.filterFichesByMedecin( (Medecin) listMedecinsCBox.getSelectedItem() ).toArray());
+                this.fichesLst.setModel(list.getModel());
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        JComboBox c = (JComboBox) evt.getSource();
+        JList list;
+        switch(c.getSelectedIndex()){
+            case 0:
+                list = new JList(dm.getMedecins().toArray());
+                this.medecinLst.setModel(list.getModel());
+                break;
+            case 1:
+                DefaultComboBoxModel<Patient> modelMedecin = new DefaultComboBoxModel<>( new Vector<Patient>(dm.getPatients()));
+                JComboBox<Patient> listPatientsCBox = new JComboBox<>(modelMedecin);
+
+                JOptionPane.showMessageDialog(null, listPatientsCBox, "Selectionner le patient", JOptionPane.PLAIN_MESSAGE);
+                list = new JList( this.filterMedecinsByPatient( (Patient) listPatientsCBox.getSelectedItem() ).toArray());
+                this.medecinLst.setModel(list.getModel());
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        JComboBox c = (JComboBox) evt.getSource();
+        JList list;
+        switch(c.getSelectedIndex()){
+            case 0:
+                list = new JList(dm.getMedecins().toArray());
+                this.medecinLst.setModel(list.getModel());
+                break;
+            case 1:
+                DefaultComboBoxModel<Medecin> modelMedecin = new DefaultComboBoxModel<>( new Vector<Medecin>(dm.getMedecins()));
+                JComboBox<Medecin> listMedecinsCBox = new JComboBox<>(modelMedecin);
+
+                JOptionPane.showMessageDialog(null, listMedecinsCBox, "Selectionner le médecin", JOptionPane.PLAIN_MESSAGE);
+                list = new JList( this.filterPatientsByMedecin( (Medecin) listMedecinsCBox.getSelectedItem() ).toArray());
+                this.patientLst.setModel(list.getModel());
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void editFicheBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editFicheBtnActionPerformed
+        FicheDeSoins selected = fichesLst.getSelectedValue();
+        if( selected == null) return;
+        if(this.editFicheBtn.getText().equals("Modifier")) {
+            this.editFicheBtn.setText("Annuler");
+            toggleFicheTxtF(true);
+        } else {
+            toggleFicheTxtF(false);
+            this.editFicheBtn.setText("Modifier");
+            updateFicheTextFields(selected);
+        }
+    }//GEN-LAST:event_editFicheBtnActionPerformed
+
+    private void saveFicheBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFicheBtnActionPerformed
+        FicheDeSoins selected = fichesLst.getSelectedValue();
+        if( selected == null ) return;
+        FicheDeSoins tmp = new FicheDeSoins(
+            (Patient) this.fichePatientsBox.getSelectedItem(),
+            (Medecin) this.ficheMedecinsBox.getSelectedItem(),
+            new Date(
+                Integer.parseInt( (String) this.ficheDayBox.getSelectedItem() ),
+                Integer.parseInt( (String) this.ficheMonthBox.getSelectedItem() ),
+                Integer.parseInt( (String) this.ficheYearBox.getSelectedItem() )
+            ),
+            selected.getId(),
+            selected.getActes()
+        );
         
+        selected.setPatient( tmp.getPatient() );
+        selected.setMedecin( tmp.getMedecin() );
+        selected.setDate( tmp.getDate() );
+        
+        ModifyXMLFile.modifyFiche(selected.getId(), tmp);
+        toggleFicheTxtF(false);
+        this.fichesLst.updateUI();
+        this.editFicheBtn.setSelected(false);
+        this.editFicheBtn.setText("Modifier");
+    }//GEN-LAST:event_saveFicheBtnActionPerformed
+
+    private void accessFichesPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessFichesPatientBtnActionPerformed
+        Patient selectedPatient = this.patientLst.getSelectedValue();
+        if(selectedPatient == null) return;
+        this.mainTabbedPanel.setSelectedComponent( this.jPanel3 );
+        JList list = new JList( this.filterFichesByPatient( selectedPatient ).toArray());
+        this.fichesLst.setModel(list.getModel());
+        
+    }//GEN-LAST:event_accessFichesPatientBtnActionPerformed
+    
+    private List<FicheDeSoins> sortFichesByDateCroissante(){
+        ListModel<FicheDeSoins> currentListModel = this.fichesLst.getModel();
+        List<FicheDeSoins> copieFiches = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> sorted = new ArrayList<>(currentListModel.getSize());
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            copieFiches.add( currentListModel.getElementAt(i) );
+        }
+        while (!copieFiches.isEmpty()) {
+            // on cherche la fiche de soins de date minimale :
+            int imin = 0;
+            FicheDeSoins f1 = copieFiches.get(imin);
+            for (int i = 1; i < copieFiches.size(); i++) {
+                FicheDeSoins f2 = copieFiches.get(i);
+                if (f2.getDate().compareTo(f1.getDate()) < 0) {
+                    imin = i;
+                    f1 = f2;
+                }
+            }
+            // on affiche la fiche de soins trouvee :
+            sorted.add(f1);
+            //on la supprime de la liste :
+            copieFiches.remove(imin);
+        }
+        return sorted;
+    }
+    
+    private List<FicheDeSoins> sortFichesByDateDecroissante(){
+        ListModel<FicheDeSoins> currentListModel = this.fichesLst.getModel();
+        List<FicheDeSoins> copieFiches = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> sorted = new ArrayList<>(currentListModel.getSize());
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            copieFiches.add( currentListModel.getElementAt(i) );
+        }
+        while (!copieFiches.isEmpty()) {
+            // on cherche la fiche de soins de date minimale :
+            int imin = 0;
+            FicheDeSoins f1 = copieFiches.get(imin);
+            for (int i = 1; i < copieFiches.size(); i++) {
+                FicheDeSoins f2 = copieFiches.get(i);
+                if (f2.getDate().compareTo(f1.getDate()) > 0) {
+                    imin = i;
+                    f1 = f2;
+                }
+            }
+            // on affiche la fiche de soins trouvee :
+            sorted.add(f1);
+            //on la supprime de la liste :
+            copieFiches.remove(imin);
+        }
+        return sorted;
+    }
+     
+    private List<FicheDeSoins> sortFichesByCoutDecroissant(){
+        ListModel<FicheDeSoins> currentListModel = this.fichesLst.getModel();
+        List<FicheDeSoins> copieFiches = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> sorted = new ArrayList<>(currentListModel.getSize());
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            copieFiches.add( currentListModel.getElementAt(i) );
+        }
+        while (!copieFiches.isEmpty()) {
+            // on cherche la fiche de soins de date minimale :
+            int imin = 0;
+            FicheDeSoins f1 = copieFiches.get(imin);
+            for (int i = 1; i < copieFiches.size(); i++) {
+                FicheDeSoins f2 = copieFiches.get(i);
+                if (f1.coutTotal() < f2.coutTotal()) {
+                    imin = i;
+                    f1 = f2;
+                }
+            }
+            // on affiche la fiche de soins trouvee :
+            sorted.add(f1);
+            //on la supprime de la liste :
+            copieFiches.remove(imin);
+        }
+        return sorted;
+    }   
+    
+    private List<FicheDeSoins> sortFichesByCoutCroissant(){
+        ListModel<FicheDeSoins> currentListModel = this.fichesLst.getModel();
+        List<FicheDeSoins> copieFiches = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> sorted = new ArrayList<>(currentListModel.getSize());
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            copieFiches.add( currentListModel.getElementAt(i) );
+        }
+        while (!copieFiches.isEmpty()) {
+            // on cherche la fiche de soins de date minimale :
+            int imin = 0;
+            FicheDeSoins f1 = copieFiches.get(imin);
+            for (int i = 1; i < copieFiches.size(); i++) {
+                FicheDeSoins f2 = copieFiches.get(i);
+                if (f1.coutTotal() > f2.coutTotal()) {
+                    imin = i;
+                    f1 = f2;
+                }
+            }
+            // on affiche la fiche de soins trouvee :
+            sorted.add(f1);
+            //on la supprime de la liste :
+            copieFiches.remove(imin);
+        }
+        return sorted;
+    }   
+   
+    private List<FicheDeSoins> filterFichesByPatient(Patient p){
+        JList defaultList = new JList(dm.getFiches().toArray());
+        ListModel<FicheDeSoins> currentListModel = defaultList.getModel();
+        List<FicheDeSoins> currentList = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> filtered = new ArrayList<>();
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            currentList.add( currentListModel.getElementAt(i) );
+        }
+        
+        for(FicheDeSoins s: currentList){
+            if(s.getPatient() == p)
+                filtered.add(s);
+        }
+        
+        return filtered;
+    }
+    
+    private List<FicheDeSoins> filterFichesByMedecin(Medecin m){
+        JList defaultList = new JList(dm.getFiches().toArray());
+        ListModel<FicheDeSoins> currentListModel = defaultList.getModel();
+        List<FicheDeSoins> currentList = new ArrayList<>(currentListModel.getSize());
+        List<FicheDeSoins> filtered = new ArrayList<>();
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            currentList.add( currentListModel.getElementAt(i) );
+        }
+        
+        for(FicheDeSoins s: currentList){
+            if(s.getMedecin() == m)
+                filtered.add(s);
+        }
+        
+        return filtered;
+    }
+    
+    private List<Medecin> filterMedecinsByPatient(Patient p){
+        JList defaultList = new JList(dm.getMedecins().toArray());
+        ListModel<Medecin> currentListModel = defaultList.getModel();
+        List<Medecin> currentList = new ArrayList<>(currentListModel.getSize());
+        List<Medecin> filtered = new ArrayList<>();
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            currentList.add( currentListModel.getElementAt(i) );
+        }
+        
+        for(FicheDeSoins f: dm.getFiches()){
+            if(f.getPatient() == p){
+                if(!filtered.contains( f.getMedecin() ))
+                    filtered.add(f.getMedecin());
+            }     
+        }
+        
+        return filtered; 
+    }
+    
+    private List<Patient> filterPatientsByMedecin(Medecin m){
+        JList defaultList = new JList(dm.getPatients().toArray());
+        ListModel<Patient> currentListModel = defaultList.getModel();
+        List<Patient> currentList = new ArrayList<>(currentListModel.getSize());
+        List<Patient> filtered = new ArrayList<>();
+        
+        for(int i = 0; i < currentListModel.getSize(); i++ ){
+            currentList.add( currentListModel.getElementAt(i) );
+        }
+        
+        for(FicheDeSoins f: dm.getFiches()){
+            if(f.getMedecin() == m){
+                if(!filtered.contains( f.getPatient() ))
+                    filtered.add(f.getPatient());
+            }     
+        }
+        
+        return filtered; 
+    }
+    
+    public final void initializeYearBox() {
+        java.time.LocalDate date = java.time.LocalDate.now();
+        int nYears = date.getYear() - AddFiche.STARTING_YEAR + 1;
+        for(int i = 0; i < nYears; i++) {
+            this.ficheYearBox.addItem(Integer.toString(i + AddFiche.STARTING_YEAR));
+        }
+        
+    }
+    
     private void updatePatientTextFields(Patient p){
         if( p != null) {
             this.patientNameTxtF.setText( p.getNom() );
             this.patientSurnameTxtF.setText( p.getPrenom() );
             this.patientAdressTxtF.setText( p.getAdresse() );
             this.patientInseeTxtF.setText( p.getNumINSEE() );
+            this.patientCoutTotalLbl.setText( new DecimalFormat("##.##").format( p.getCoutTotal() ) + "€");
         }
     }
     
@@ -1122,11 +1576,18 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void updateFicheTextFields(FicheDeSoins f){
         if( f != null ) {
-            this.ficheMedecinTxtF.setText( f.getMedecin().toString() );
-            this.fichePatientTxtF.setText( f.getPatient().toString() );
-            this.ficheDateTxtF.setText( f.getDate().toString() );
-
-
+            this.ficheDayBox.setSelectedIndex( f.getDate().getJour() - 1);
+            this.ficheMonthBox.setSelectedIndex( f.getDate().getMois() - 1);
+            this.ficheYearBox.setSelectedIndex( f.getDate().getAnnee() - AddFiche.STARTING_YEAR);
+            this.ficheCoutTotalLbl.setText( new DecimalFormat("##.##").format( f.coutTotal() ) + "€");
+            DefaultComboBoxModel<Medecin> modelMedecins = new DefaultComboBoxModel<>( new Vector<Medecin>(dm.getMedecins()) );
+            this.ficheMedecinsBox.setModel(modelMedecins);
+            this.ficheMedecinsBox.setSelectedItem(f.getMedecin());
+            this.fichePatientsBox.setSelectedItem(f.getPatient());
+            DefaultComboBoxModel<Patient> modelPatients = new DefaultComboBoxModel<>( new Vector<Patient>(dm.getPatients()) );
+            this.fichePatientsBox.setModel(modelPatients);
+            this.fichePatientsBox.setSelectedItem(f.getPatient());
+            
             DefaultComboBoxModel<Acte> model = new DefaultComboBoxModel<>( f.getActes() );
             this.fichesActesCBox.setModel(model);
         }
@@ -1134,7 +1595,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void updateActeTextFields(Acte a) {
         if ( a != null ) {
-            MainWindow.this.ficheCoutActeTxtf.setText( new DecimalFormat("##.##").format( a.cout() ));
+            MainWindow.this.ficheCoutActeLbl.setText( new DecimalFormat("##.##").format( a.cout() ) + "€");
             MainWindow.this.ficheObservationsTxtf.setText( a.getObservations() );
             MainWindow.this.typeBtnGrp.clearSelection();
             if(a.getType() == TypeActe.DIAGNOSTIQUE) {
@@ -1169,6 +1630,20 @@ public class MainWindow extends javax.swing.JFrame {
         JList ficheJList = new JList(dm.getFiches().toArray());
         this.fichesLst.setModel(ficheJList.getModel());
         this.fichesLst.setSelectedIndex( index );
+    }
+    
+    public void toggleFicheTxtF(Boolean bool){
+        this.ficheDayBox.setEnabled(bool);
+        this.ficheMonthBox.setEnabled(bool);
+        this.ficheYearBox.setEnabled(bool);
+        this.fichePatientsBox.setEnabled(bool);
+        this.ficheMedecinsBox.setEnabled(bool);
+        
+        this.ficheDayBox.setEditable(!bool);
+        this.ficheMonthBox.setEditable(!bool);
+        this.ficheYearBox.setEditable(!bool);
+        this.fichePatientsBox.setEditable(!bool);
+        this.ficheMedecinsBox.setEditable(!bool);
     }
     /**
      * @param args the command line arguments
@@ -1220,33 +1695,37 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accessFichesPatientBtn;
     private javax.swing.JButton addActeBtn;
-    private javax.swing.JButton addActePatientBtn;
     private javax.swing.JButton addFicheBtn;
     private javax.swing.JButton addMedecinBtn;
     private javax.swing.JButton addPatientBtn;
     private javax.swing.JLabel adressLbl;
+    private javax.swing.JButton editFicheBtn;
     private javax.swing.JToggleButton editMedecinBtn;
     private javax.swing.JToggleButton editPatientBtn;
-    private javax.swing.JTextField ficheCoutActeTxtf;
-    private javax.swing.JTextField ficheDateTxtF;
-    private javax.swing.JTextField ficheMedecinTxtF;
+    private javax.swing.JLabel ficheCoutActeLbl;
+    private javax.swing.JLabel ficheCoutTotalLbl;
+    private javax.swing.JComboBox<String> ficheDayBox;
+    private javax.swing.JComboBox<Medecin> ficheMedecinsBox;
+    private javax.swing.JComboBox<String> ficheMonthBox;
     private javax.swing.JTextArea ficheObservationsTxtf;
-    private javax.swing.JTextField fichePatientTxtF;
+    private javax.swing.JComboBox<Patient> fichePatientsBox;
+    private javax.swing.JComboBox<String> ficheYearBox;
     private javax.swing.JComboBox<Acte> fichesActesCBox;
     private javax.swing.JList<FicheDeSoins> fichesLst;
-    private javax.swing.JButton filterPatientBtn;
     private javax.swing.JPanel infoPatientPnl;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1255,7 +1734,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1285,6 +1767,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextField medecinTelephoneTxtF;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JTextField patientAdressTxtF;
+    private javax.swing.JLabel patientCoutTotalLbl;
     private javax.swing.JLabel patientInseeLbl;
     private javax.swing.JTextField patientInseeTxtF;
     private javax.swing.JPanel patientListPnl;
@@ -1295,6 +1778,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSplitPane patientSPnl;
     private javax.swing.JTextField patientSurnameTxtF;
     private javax.swing.JButton printPatientBtn;
+    private javax.swing.JButton saveFicheBtn;
     private javax.swing.JButton saveMedecinBtn;
     private javax.swing.JButton savePatientBtn;
     private javax.swing.JLabel surnameLbl;

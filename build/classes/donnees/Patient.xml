@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
-
-
-<patients>
+--><patients>
     <patient id="245093820000590">
         <nom>Track</nom>
         <prenom>Pat</prenom>
@@ -31,10 +28,28 @@ and open the template in the editor.
         <adresse>4 avenue D</adresse>
         <insee>160123800116090</insee>
     </patient>
-    <patient id="180024299013">
+    <patient id="180024299013414">
         <nom>Henfayitte</nom>
         <prenom>Melusine</prenom>
         <adresse>5 avenue E</adresse>
-        <insee>180024299013</insee>
+        <insee>180024299013414</insee>
+    </patient>
+    <patient id="255145116802508">
+        <nom>DuRhin</nom>
+        <prenom>Jacquot</prenom>
+        <adresse>5 rue des oliviers</adresse>
+        <insee>255145116802508</insee>
+    </patient>
+    <patient id="125487548758128">
+        <nom>Johnson</nom>
+        <prenom>Abby</prenom>
+        <adresse>54 chemin des capres</adresse>
+        <insee>125487548758128</insee>
+    </patient>
+    <patient id="145247848957878">
+        <nom>Maliciozi</nom>
+        <prenom>Erika</prenom>
+        <adresse>87 boulevard des routes</adresse>
+        <insee>145247848957878</insee>
     </patient>
 </patients>

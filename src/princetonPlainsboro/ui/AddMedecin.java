@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import princetonPlainsboro.fc.Medecin;
+import princetonPlainsboro.fc.ModifyXMLFile;
 
 /**
  *
@@ -209,6 +210,7 @@ public class AddMedecin extends javax.swing.JFrame {
                     this.specialiteField.getText(), 
                     this.telephoneField.getText());
             mainWindow.ajouterMedecin(tmp);
+            ModifyXMLFile.addMedecin(tmp);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Erreurs dans un ou plusieurs champs");

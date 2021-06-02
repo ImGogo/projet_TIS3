@@ -14,6 +14,18 @@ public class Date implements Comparable {
     public String toString() {
         return jour + "/" + mois + "/" + annee;
         }
+
+    public int getJour() {
+        return jour;
+    }
+
+    public int getMois() {
+        return mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
     
      public String getFormattedDate(){
         return annee + "-" + mois + "-" + jour;

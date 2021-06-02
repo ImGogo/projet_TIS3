@@ -56,6 +56,10 @@ public class Medecin {
         }
     }
 
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     public String getNom() {
         return nom;
     }

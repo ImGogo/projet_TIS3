@@ -74,12 +74,12 @@ public class Scripts {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String salt = generateSalt(512).get();
-        String password = "toto";
-        String key = hashPassword(password, salt).get();
-        System.out.println(verifyPassword("toto", key, salt));
-        System.out.println(verifyPassword("dqlkdkql", key, salt));
-        
+//        String salt = generateSalt(512).get();
+        String password = "tyty";
+        String key = hashPassword(password, Salt.SALT).get();
+        System.out.println(key);
+        System.out.println(verifyPassword("toto", key, Salt.SALT));
+        System.out.println(verifyPassword("dqlkdkql", key, Salt.SALT));
     }
     
 }

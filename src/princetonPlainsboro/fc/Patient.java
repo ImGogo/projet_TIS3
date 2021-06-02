@@ -75,16 +75,15 @@ public class Patient {
         this.adresse = adresse;
     }
     
-    public boolean verifyINSEE(String numINSEE,String cle) {
-        if (numINSEE.length() > 14) {
+    public static boolean verifyINSEE(String numINSEE) {
+        if (numINSEE.length() != 15) {
             return false;
         } else {
-            String firstPart = numINSEE.substring(0, 11);
-            
+            String firstPart = numINSEE.substring(0, 13);
+            String cle = numINSEE.substring(13);
             double fp = Double.parseDouble(firstPart);
             double verifCle = Double.parseDouble(cle);
             double calculCle=97-(fp%97);
-            //System.out.println("cle= "+cle);
             return verifCle==calculCle;
         }
     }
@@ -94,7 +93,14 @@ public class Patient {
 //    }
         
     
-   
+    public double getCoutTotal(){
+        double total = 0;
+        for(FicheDeSoins f: this.listeFiches){
+            total += f.coutTotal();
+        }
+        
+        return total;
+    }
     
     public boolean equals(Object o) {
         if (o instanceof Patient) {

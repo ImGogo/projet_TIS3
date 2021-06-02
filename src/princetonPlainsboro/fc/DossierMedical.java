@@ -159,10 +159,10 @@ public class DossierMedical {
         }
         return n;
     }
-
-    public void trierDates() {
-        Vector<FicheDeSoins> copieFiches = new Vector<FicheDeSoins>(fiches);
-
+    
+    public List<FicheDeSoins> sortFichesByDateCroissante(){
+        List<FicheDeSoins> copieFiches = new ArrayList<>(fiches);
+        List<FicheDeSoins> sorted = new ArrayList<>();
         while (!copieFiches.isEmpty()) {
             // on cherche la fiche de soins de date minimale :
             int imin = 0;
@@ -175,12 +175,37 @@ public class DossierMedical {
                 }
             }
             // on affiche la fiche de soins trouvee :
-            f1.afficher();
-            System.out.println("------------------------");
+            sorted.add(f1);
             //on la supprime de la liste :
             copieFiches.remove(imin);
         }
+        return sorted;
     }
+    
+    public List<FicheDeSoins> sortFichesByDateDecroissante(){
+        List<FicheDeSoins> copieFiches = new ArrayList<>(fiches);
+        List<FicheDeSoins> sorted = new ArrayList<>();
+        while (!copieFiches.isEmpty()) {
+            // on cherche la fiche de soins de date minimale :
+            int imin = 0;
+            FicheDeSoins f1 = copieFiches.get(imin);
+            for (int i = 1; i < copieFiches.size(); i++) {
+                FicheDeSoins f2 = copieFiches.get(i);
+                if (f2.getDate().compareTo(f1.getDate()) > 0) {
+                    imin = i;
+                    f1 = f2;
+                }
+            }
+            // on affiche la fiche de soins trouvee :
+            sorted.add(f1);
+            //on la supprime de la liste :
+            copieFiches.remove(imin);
+        }
+        return sorted;
+    }
+    
+
+    
 
     // tri generique :
     public void trier(ComparaisonFiches c) {
