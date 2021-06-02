@@ -97,7 +97,20 @@ public class DossierMedical {
             System.out.println("--------------------------------------");
         }
     }
-
+    
+    public String getStringToPrinter() {
+        String s = "Dossier medical informatise :\n";
+        s += "-----------------------------\n";
+        for (int i = 0; i < fiches.size(); i++) {
+            FicheDeSoins f = fiches.get(i);
+            
+            s += f.getStringToPrint();
+            // pour separer les fiches de soins :
+            s += "--------------------------------------\n";
+        }
+        return s;
+    }
+    
     public double coutPatient(Patient p) {
         double cout = 0;
         for (int i = 0; i < fiches.size(); i++) {
@@ -204,7 +217,17 @@ public class DossierMedical {
         return sorted;
     }
     
-
+    public List<FicheDeSoins> getFichesBetweenDates( Date inf, Date sup){
+        List<FicheDeSoins> liste = new ArrayList<>();
+        
+        for(FicheDeSoins f: this.fiches){
+            Date fDate = f.getDate();
+            if( fDate.compareTo(inf) >= 0 && fDate.compareTo(sup) <= 0){
+                liste.add(f);
+            }
+        }
+        return liste;
+    }
     
 
     // tri generique :

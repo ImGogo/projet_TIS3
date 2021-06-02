@@ -5,7 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 --><Fiches>
     <ficheDeSoins id="1">
-    <date>2006-1-6</date>
+    <date>2006-1-6;16:18</date>
     <medecin id="1"/>
     <patient id="245093820000590"/>
     <acte>
@@ -29,7 +29,7 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="2">
-    <date>2005-10-23</date>
+    <date>2005-10-23;9:34</date>
     <medecin id="2"/>
     <patient id="106117499830050"/>
     <acte>
@@ -47,7 +47,7 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="3">
-    <date>2006-1-4</date>
+    <date>2006-1-4;23:12</date>
     <medecin id="3"/>
     <patient id="250117414050005"/>
     <acte>
@@ -59,7 +59,7 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="4">
-    <date>2005-11-13</date>
+    <date>2005-11-13;12:01</date>
     <medecin id="3"/>
     <patient id="250117414050005"/>
     <acte>
@@ -71,7 +71,7 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="5">
-    <date>2005-08-31</date>
+    <date>2005-08-31;14:45</date>
     <medecin id="4"/>
     <patient id="160123800116090"/>
     <acte>
@@ -89,7 +89,7 @@ and open the template in the editor.
   </ficheDeSoins>
   
   <ficheDeSoins id="6">
-    <date>2005-08-31</date>
+    <date>2005-08-31;3:16</date>
     <medecin id="5"/>
     <patient id="180024299013414"/>
     <acte>
@@ -130,7 +130,7 @@ and open the template in the editor.
     </acte>
   </ficheDeSoins>
   <ficheDeSoins id="7">
-      <date>2021-6-1</date>
+      <date>2021-6-1;6:1</date>
       <medecin id="3"/>
       <patient id="245093820000590"/>
       <acte>
@@ -141,7 +141,7 @@ and open the template in the editor.
       </acte>
   </ficheDeSoins>
 <ficheDeSoins id="8">
-        <date>2021-6-2</date>
+        <date>2021-6-2;12:55</date>
         <medecin id="6"/>
         <patient id="125487548758128"/>
     <acte>
@@ -155,6 +155,17 @@ and open the template in the editor.
             <coef>3</coef>
             <type>1</type>
             <observations>aorte bloquée</observations>
+        </acte>
+    </ficheDeSoins>
+<ficheDeSoins id="9">
+        <date>2021-6-2;15:9</date>
+        <medecin id="5"/>
+        <patient id="160123800116090"/>
+    <acte>
+            <code>CS</code>
+            <coef>3</coef>
+            <type>1</type>
+            <observations>patient présente douleurs légères à la gorge</observations>
         </acte>
     </ficheDeSoins>
 </Fiches>

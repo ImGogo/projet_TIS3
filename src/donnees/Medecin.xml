@@ -40,4 +40,10 @@ and open the template in the editor.
         <specialite>Pediatrie</specialite>
         <telephone>0498789874</telephone>
     </medecin>
+<medecin id="7">
+        <nom>Sanspatient</nom>
+        <prenom>Jesuisundocteur</prenom>
+        <specialite>ORL</specialite>
+        <telephone>0698878066</telephone>
+    </medecin>
 </medecins>

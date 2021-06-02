@@ -1,6 +1,9 @@
 package princetonPlainsboro.fc;
 
 // Cette enumeration fait intervenir des valeurs qui possedent des
+
+import java.util.Vector;
+
 // attributs ('libelle' et 'cout') qui sont initialises par un appel du
 // constructeur (arguments entre parentheses apres le nom de chaque valeur).
 // Par exemple, la valeur Code.FP a un attribut 'libelle' contenant la chaine
@@ -43,4 +46,11 @@ public enum Code {
     public double calculerCout(int coefficient) {
         return coefficient * cout;
         }
+    
+    public static Vector<Code> getValuesVector(){
+        Vector<Code> v = new Vector<>();
+        for(Code c: Code.values() )
+            v.add(c);
+        return v;
+    }
     }

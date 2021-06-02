@@ -26,6 +26,7 @@ public class AddPatient extends javax.swing.JFrame {
      */
     public AddPatient(MainWindow mainWindow) {
         initComponents();
+        this.getContentPane().setBackground( new java.awt.Color(255,255,255) );
         this.mainWindow = mainWindow;
         isValid = false;
     }
@@ -95,6 +96,8 @@ public class AddPatient extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel5.setText("Ajout d'un patient");
 
+        addPatientBtn.setBackground(new java.awt.Color(50, 109, 168));
+        addPatientBtn.setForeground(new java.awt.Color(255, 255, 255));
         addPatientBtn.setText("Ajouter");
         addPatientBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,9 +143,10 @@ public class AddPatient extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(29, 29, 29)
                                 .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(addPatientBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

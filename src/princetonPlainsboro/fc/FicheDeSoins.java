@@ -53,7 +53,18 @@ public class FicheDeSoins {
             System.out.println("    > " + a.toString());
             }
         }
-
+    
+    public String getStringToPrint(){
+        String s = "Fiche de soins du " + date.toString() +"\n";
+        s += "- medecin : " + medecin.toString() + "\n";
+        s += "- patient : " + patient.toString() + "\n";
+        s += "- actes medicaux :\n";
+        for (int i=0; i<actes.size(); i++) {
+            Acte a = actes.get(i);
+            s += "    > " + a.toString() + "\n";
+            }
+        return s;
+    }
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
@@ -92,5 +103,7 @@ public class FicheDeSoins {
     public Vector<Acte> getActes(){
         return this.actes;
     }
+    
+    
 }
 
