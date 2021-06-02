@@ -5,6 +5,8 @@
  */
 package princetonPlainsboro.ui;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import princetonPlainsboro.fc.LectureXMLPersonnel;
 
 /**
@@ -152,7 +154,27 @@ public class LoginWindow extends javax.swing.JFrame {
         
         String id = this.jTextField1.getText();
         String password = String.valueOf( this.jPasswordField1.getPassword() );
-        System.out.println( LectureXMLPersonnel.isCorrect(filename, id, password));
+        int type;
+        if(this.jRadioButton1.isSelected()) type = 1;
+        else type = 2;
+        
+        if( LectureXMLPersonnel.isCorrect(filename, id, password) ){
+            this.dispose();
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    MainWindow mw = new MainWindow(type, LoginWindow.this.jTextField1.getText());
+
+                    mw.setVisible(true);
+                    mw.setLocationRelativeTo(null);
+
+
+                    SwingUtilities.updateComponentTreeUI(mw);
+                }
+            });
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Identifiant ou mot de passe incorrect", "", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -185,7 +207,9 @@ public class LoginWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginWindow().setVisible(true);
+                LoginWindow lw = new LoginWindow();
+                lw.setVisible(true);
+                lw.setLocationRelativeTo(null);
             }
         });
     }

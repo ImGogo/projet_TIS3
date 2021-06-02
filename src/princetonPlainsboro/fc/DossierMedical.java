@@ -61,7 +61,13 @@ public class DossierMedical {
         }
         return patients.get(i);
     }
-    
+    public Medecin getMedecinById(String id){
+        int i = 0;
+        while( i < medecins.size() && !medecins.get(i).getId().equals(id)) {
+            i++;
+        }
+        return medecins.get(i);
+    }
     public Medecin getMedecin(String nom) {
         int i = 0;
         while( i < medecins.size() && !medecins.get(i).toString().equals(nom)) {

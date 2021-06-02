@@ -24,8 +24,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class Scripts {
     
     private static final SecureRandom RAND = new SecureRandom();
-    private static final int ITERATIONS = 65536;
-    private static final int KEY_LENGTH = 512;
+    private static final int ITERATIONS = 100;
+    private static final int KEY_LENGTH = 128;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA512";
 
     public static Optional<String> generateSalt (final int length) {
@@ -75,7 +75,7 @@ public class Scripts {
      */
     public static void main(String[] args) {
 //        String salt = generateSalt(512).get();
-        String password = "tyty";
+        String password = "lala";
         String key = hashPassword(password, Salt.SALT).get();
         System.out.println(key);
         System.out.println(verifyPassword("toto", key, Salt.SALT));

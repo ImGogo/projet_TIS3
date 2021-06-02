@@ -40,7 +40,7 @@ public class Medecin {
     }
 
     public String toString() {
-        return "Dr " + prenom + " " + nom + ", " + specialite;
+        return "Dr " + prenom + " " + nom;
     }
 
     public String toStringComplet() {

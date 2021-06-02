@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<PersonnelAdministratif>
+    <personnel id="1">
+        <password>SAWX7IW9C02E4qrxDqv4dw==</password>
+    </personnel>
+    <personnel id="2">
+        <password>fDBDJhJmxqBMNHG5MbooDQ==</password>
+    </personnel>
+</PersonnelAdministratif>
