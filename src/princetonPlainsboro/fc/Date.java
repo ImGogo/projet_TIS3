@@ -48,6 +48,18 @@ public class Date implements Comparable {
      public String getFormattedDate(){
         return annee + "-" + mois + "-" + jour + ";" + heure + ":" + minute;
     }
+     
+    public String getDateToPrinter(){
+        String sJour = Integer.toString(jour);
+        String sMois = Integer.toString(mois);
+        String sHeure = Integer.toString(heure);
+        String sMinute = Integer.toString(minute);
+        if(jour < 10){ sJour = "0" + sJour; }
+        if(mois < 10){ sMois = "0" + sMois; }
+        if(heure < 10){ sHeure = "0" + sHeure; }
+        if(minute < 10){ sMinute = "0" + sMinute; }
+        return sJour + "/" + sMois + "/" + annee + " à " + sHeure + ":" + sMinute;
+    }
     
     public boolean equals(Object o) {
         if (o instanceof Date) {

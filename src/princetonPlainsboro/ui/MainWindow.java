@@ -40,6 +40,7 @@ import princetonPlainsboro.fc.DossierMedical;
 import princetonPlainsboro.fc.DossierMedicalPrinter;
 import princetonPlainsboro.fc.FicheDeSoins;
 import princetonPlainsboro.fc.FichePatientPrinter;
+import princetonPlainsboro.fc.InfoPatientPrinter;
 import princetonPlainsboro.fc.LectureXMLDossier;
 import princetonPlainsboro.fc.LectureXMLMedecin;
 import princetonPlainsboro.fc.LectureXMLPatient;
@@ -570,7 +571,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .add(jLabel5)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(ficheMinuteBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(0, 52, Short.MAX_VALUE)))
+                        .add(0, 178, Short.MAX_VALUE)))
                 .add(171, 171, 171))
         );
         jPanel16Layout.setVerticalGroup(
@@ -794,7 +795,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(jLabel20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(medecinSurnameTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1050,7 +1051,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(patientCoutTotalLbl)))
                     .add(listeActePatientSPnl, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 628, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         infoPatientPnlLayout.setVerticalGroup(
             infoPatientPnlLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1176,7 +1177,7 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(15, 15, 15)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jLabel7)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1188,11 +1189,9 @@ public class MainWindow extends javax.swing.JFrame {
                             .add(jLabel8))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(prixCoefTxtF)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(prixActeLbl)
-                                .add(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .add(prixActeLbl)
+                            .add(prixCoefTxtF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1221,7 +1220,7 @@ public class MainWindow extends javax.swing.JFrame {
             .add(jPanel8Layout.createSequentialGroup()
                 .add(23, 23, 23)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(707, Short.MAX_VALUE))
+                .addContainerGap(735, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1432,7 +1431,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addMedecinBtnActionPerformed
 
     private void printPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPatientBtnActionPerformed
-        // TODO add your handling code here:
+        if (this.patientLst.getSelectedValue() == null) return;
+        InfoPatientPrinter fp = new InfoPatientPrinter(this.patientLst.getSelectedValue());
+        fp.actionPerformed(null);
     }//GEN-LAST:event_printPatientBtnActionPerformed
 
     private void editPatientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPatientBtnActionPerformed

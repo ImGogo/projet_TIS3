@@ -606,7 +606,7 @@
                                                       <Component id="ficheMinuteBox" min="-2" pref="54" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="178" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
@@ -1315,7 +1315,7 @@
                                               <Component id="medecinSurnameTxtF" min="-2" pref="230" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="132" max="32767" attributes="0"/>
+                                      <EmptySpace pref="258" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1703,7 +1703,7 @@
                                           </Group>
                                           <Component id="listeActePatientSPnl" alignment="0" min="-2" pref="628" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                                      <EmptySpace pref="209" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1895,7 +1895,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="707" max="32767" attributes="0"/>
+                          <EmptySpace pref="735" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1922,7 +1922,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1936,15 +1936,12 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="prixCoefTxtF" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="prixActeLbl" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="prixActeLbl" min="-2" max="-2" attributes="0"/>
+                                          <Component id="prixCoefTxtF" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="24" max="32767" attributes="0"/>
+                              <EmptySpace pref="122" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

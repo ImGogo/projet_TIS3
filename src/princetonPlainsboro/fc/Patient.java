@@ -1,5 +1,6 @@
 package princetonPlainsboro.fc;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,10 +88,22 @@ public class Patient {
             return verifCle==calculCle;
         }
     }
-
-//    public void setListeActes(List<Acte> listeActes) {
-//        this.listeActes = listeActes;
-//    }
+    
+    public String getStringToPrinter() {
+        String s = "Dossier patient : " + this.nom + " " + this.prenom + "\n\n";
+        for(FicheDeSoins f : this.getListeFiches() ){
+            s += "-----------------------------------------\n";
+            s += "- Fiche du " + f.getDate().getDateToPrinter() + "\n";
+            s += "- Medecin : " + f.getMedecin().toString() + "\n- Actes :\n";
+            for(Acte a: f.getActes()){
+                s += "    >" + a.toString();
+                s += "\n        Coût : " + new DecimalFormat("##.##").format( a.cout()) + "€\n";
+            }
+        }
+        s += "-----------------------------------------\n\n";
+        s += "COUT TOTAL = " + new DecimalFormat("##.##").format( this.getCoutTotal()) + "€\n";
+        return s;
+    }
         
     
     public double getCoutTotal(){
